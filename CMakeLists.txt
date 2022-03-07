@@ -19,4 +19,4 @@ add_subdirectory(test)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin/test)
 
-#add_executable(testcore src/test/main.cpp src/core/net/SocketOpt.cpp)
+add_executable(testcore ./test/main.cpp)
