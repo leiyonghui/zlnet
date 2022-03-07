@@ -1,0 +1,52 @@
+﻿{
+    "configurations": [
+        {
+            "name": "x64-Debug",
+            "generator": "Ninja",
+            "configurationType": "Debug",
+            "inheritEnvironments": [ "msvc_x64_x64" ],
+            "buildRoot": "${projectDir}\\out\\build\\${name}",
+            "installRoot": "${projectDir}\\out\\install\\${name}",
+            "cmakeCommandArgs": "",
+            "buildCommandArgs": "",
+            "ctestCommandArgs": ""
+        },
+        {
+            "name": "Linux-GCC-Debug",
+            "generator": "Ninja",
+            "configurationType": "Debug",
+            "cmakeExecutable": "cmake",
+            "remoteCopySourcesExclusionList": [ ".vs", ".git", "out" ],
+            "cmakeCommandArgs": "",
+            "buildCommandArgs": "",
+            "ctestCommandArgs": "",
+            "inheritEnvironments": [ "linux_x64" ],
+            "remoteMachineName": "374208062;192.168.0.130 (username=lyh, port=22, authentication=Password)",
+            "remoteCMakeListsRoot": "$HOME/projects/${projectDirName}/",
+            "remoteBuildRoot": "$HOME/projects/${projectDirName}/build/${name}",
+            "remoteCopySources": true,
+            "rsyncCommandArgs": "-t --delete --delete-excluded",
+            "remoteCopyBuildOutput": false,
+            "remoteCopySourcesMethod": "rsync"
+        },
+        {
+            "name": "Linux-GCC-myServer",
+            "generator": "Ninja",
+            "configurationType": "Debug",
+            "cmakeExecutable": "cmake",
+            "remoteCopySourcesExclusionList": [ ".vs", ".git", "out" ],
+            "cmakeCommandArgs": "",
+            "buildCommandArgs": "",
+            "ctestCommandArgs": "",
+            "inheritEnvironments": [ "linux_x64" ],
+            "remoteMachineName": "-1253245344;101.33.228.226 (username=lyh, port=22, authentication=Password)",
+            "remoteCMakeListsRoot": "$HOME/projects/${projectDirName}/",
+            "remoteBuildRoot": "$HOME/projects/${projectDirName}/build/${name}",
+            "remoteCopySources": true,
+            "rsyncCommandArgs": "-t --delete --delete-excluded",
+            "remoteCopyBuildOutput": false,
+            "remoteCopySourcesMethod": "rsync",
+            "addressSanitizerEnabled": false
+        }
+    ]
+}
