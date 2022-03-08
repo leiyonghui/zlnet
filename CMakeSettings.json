@@ -12,24 +12,6 @@
             "ctestCommandArgs": ""
         },
         {
-            "name": "Linux-GCC-Debug",
-            "generator": "Ninja",
-            "configurationType": "Debug",
-            "cmakeExecutable": "cmake",
-            "remoteCopySourcesExclusionList": [ ".vs", ".git", "out" ],
-            "cmakeCommandArgs": "",
-            "buildCommandArgs": "",
-            "ctestCommandArgs": "",
-            "inheritEnvironments": [ "linux_x64" ],
-            "remoteMachineName": "${defaultRemoteMachineName}",
-            "remoteCMakeListsRoot": "$HOME/projects/${projectDirName}/",
-            "remoteBuildRoot": "$HOME/projects/${projectDirName}/build/${name}",
-            "remoteCopySources": true,
-            "rsyncCommandArgs": "-t --delete --delete-excluded",
-            "remoteCopyBuildOutput": false,
-            "remoteCopySourcesMethod": "rsync"
-        },
-        {
             "name": "Linux-GCC-myServer",
             "generator": "Ninja",
             "configurationType": "Debug",
