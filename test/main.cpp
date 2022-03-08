@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include "network/Network.h"
 
 int main()
 {
-    printf(".....");
+    network::test();
     return 0;
 }
