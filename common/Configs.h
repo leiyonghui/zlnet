@@ -34,7 +34,7 @@ namespace core
 		{
 			for (size_t i = size - 1; i >= 0; --i)
 			{
-			switch (file[i]) { case '/': case '\\': return file + i + 1; };
+				switch (file[i]) { case '/': case '\\': return file + i + 1; };
 			}
 			return file;
 		}
