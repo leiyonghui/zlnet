@@ -26,7 +26,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 #message(status "project sdir: .....${PROJECT_SOURCE_DIR}")
 #message(status "LIBRARY_OUTPUT_PATH: .....${LIBRARY_OUTPUT_PATH}")
 
-add_subdirectory(common)
+add_subdirectory(core)
 add_subdirectory(network)
 add_subdirectory(test)
 

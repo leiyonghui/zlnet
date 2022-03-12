@@ -1,3 +1,5 @@
+#ifdef _WIN32
+
 #include <stdio.h>
 #include "network/Network.h"
 #include "network/Common.h"
@@ -7,13 +9,6 @@
 using namespace network;
 using namespace std;
 
-
-
-#ifdef __linux
-
-#endif // __Linux
-
-
 int main()
 {
 	core_log_trace(hostToNetwork32(1), ::htonl(1), hostToNetwork16(1), ::htons(1));
@@ -21,3 +16,6 @@ int main()
 	system("pause");
 	return 0;
 }
+
+#endif //  _WIN32
+
