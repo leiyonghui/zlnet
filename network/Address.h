@@ -6,7 +6,7 @@ namespace network
 	class CAddress
 	{
 	public:
-		static const Address NONE;
+		static const CAddress NONE;
 		
 		CAddress();
 

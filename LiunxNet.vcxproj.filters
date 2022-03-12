@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{5814f664-151f-44c3-9ef1-b0b69a6eef05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network">
+      <UniqueIdentifier>{56e512ba-3dc0-441a-ac6b-7e364e1f659a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{74198901-6520-42f9-8f5f-fb5d291ccfa0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="common\CMakeLists.txt">
+      <Filter>core</Filter>
+    </Text>
+    <Text Include="network\CMakeLists.txt">
+      <Filter>network</Filter>
+    </Text>
+    <Text Include="test\CMakeLists.txt">
+      <Filter>test</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common\Common.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Configs.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="common\TimeHelp.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Address.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Common.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Configs.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Network.h">
+      <Filter>network</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="common\TimeHelp.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Address.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Network.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="test\main.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
