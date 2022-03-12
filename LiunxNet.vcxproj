@@ -60,7 +60,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
-    <RemoteCopyIncludeDirectories>.\common;.\test;.\network;$(RemoteCopyIncludeDirectories)</RemoteCopyIncludeDirectories>
+    <RemoteCopyIncludeDirectories>.\core;.\test;.\network;$(RemoteCopyIncludeDirectories)</RemoteCopyIncludeDirectories>
     <RemoteCopyExcludeDirectories>.vs;.git;.\bin;.\x64;.\build;.\obj;$(RemoteCopyExcludeDirectories)</RemoteCopyExcludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -78,21 +78,21 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
-    <Text Include="common\CMakeLists.txt" />
+    <Text Include="core\CMakeLists.txt" />
     <Text Include="network\CMakeLists.txt" />
     <Text Include="test\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common\Common.h" />
-    <ClInclude Include="common\Configs.h" />
-    <ClInclude Include="common\TimeHelp.h" />
+    <ClInclude Include="core\Common.h" />
+    <ClInclude Include="core\Configs.h" />
+    <ClInclude Include="core\TimeHelp.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
     <ClInclude Include="network\Network.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="common\TimeHelp.cpp" />
+    <ClCompile Include="core\TimeHelp.cpp" />
     <ClCompile Include="network\Address.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="test\main.cpp" />
@@ -100,7 +100,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>__Linux;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

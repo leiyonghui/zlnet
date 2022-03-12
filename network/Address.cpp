@@ -32,8 +32,8 @@ namespace network
 
 	bool CAddress::String2Ip(const char* string, uint32& address)
 	{
-		in_addr trial;
 #ifdef __linux
+		in_addr trial;
 		if (::inet_aton(string, &trial))
 		{
 			address = *((int32*)((&trial)));

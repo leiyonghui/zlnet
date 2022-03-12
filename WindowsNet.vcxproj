@@ -141,21 +141,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="common\CMakeLists.txt" />
+    <Text Include="core\CMakeLists.txt" />
     <Text Include="network\CMakeLists.txt" />
     <Text Include="test\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common\Common.h" />
-    <ClInclude Include="common\Configs.h" />
-    <ClInclude Include="common\TimeHelp.h" />
+    <ClInclude Include="core\Common.h" />
+    <ClInclude Include="core\Configs.h" />
+    <ClInclude Include="core\TimeHelp.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
     <ClInclude Include="network\Network.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="common\TimeHelp.cpp" />
+    <ClCompile Include="core\TimeHelp.cpp" />
     <ClCompile Include="network\Address.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="test\main_win.cpp" />

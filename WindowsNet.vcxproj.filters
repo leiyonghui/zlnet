@@ -12,26 +12,17 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="common\CMakeLists.txt">
-      <Filter>core</Filter>
-    </Text>
     <Text Include="network\CMakeLists.txt">
       <Filter>network</Filter>
     </Text>
     <Text Include="test\CMakeLists.txt">
       <Filter>test</Filter>
     </Text>
+    <Text Include="core\CMakeLists.txt">
+      <Filter>core</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common\Common.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="common\Configs.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="common\TimeHelp.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="network\Address.h">
       <Filter>network</Filter>
     </ClInclude>
@@ -44,11 +35,17 @@
     <ClInclude Include="network\Network.h">
       <Filter>network</Filter>
     </ClInclude>
+    <ClInclude Include="core\Common.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Configs.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TimeHelp.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="common\TimeHelp.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
     <ClCompile Include="network\Address.cpp">
       <Filter>network</Filter>
     </ClCompile>
@@ -57,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="test\main_win.cpp">
       <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TimeHelp.cpp">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
