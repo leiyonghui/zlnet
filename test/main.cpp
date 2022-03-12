@@ -2,6 +2,7 @@
 #include "network/Network.h"
 #include "network/Common.h"
 #include <iostream>
+#include "network/Address.h"
 
 using namespace network;
 using namespace std;
@@ -16,8 +17,7 @@ using namespace std;
 
 int main()
 {
-    int32 a;
-    core_log_warning("...");
-
+    CAddress addr("127.0.0.1", 99);
+    core_log_trace(addr.toString());
     return 0;
 }

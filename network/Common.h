@@ -1,29 +1,28 @@
 #pragma once
 #include "Configs.h"
 
-#ifdef __Linux
+#ifdef __linux
 #include <arpa/inet.h>
-#endif // __LIUNX
+#endif // __linux
 
-
-int CheckCPUendian()
+namespace network
 {
-	union {
-		unsigned long int i;
-		unsigned char s[4];
-	}c;
+	inline int CheckCPUendian()
+	{
+		union {
+			unsigned long int i;
+			unsigned char s[4];
+		}c;
 
-	c.i = 0x12345678;
-	return (0x12 == c.s[0]);
-}
+		c.i = 0x12345678;
+		return (0x12 == c.s[0]);
+	}
 
 #define  BYTESWAP16(A) (((A&0xff00)>>8) | ((A&0x00ff)<<8))
 #define  BYTESWAP32(A) (((A&(0xff00'0000))>>24) | ((A&(0x00ff'0000))>>8) | ((A&0x0000'ff00)<<8) | ((A&0x0000'00ff)<<24))
 
-namespace network
-{
 #ifdef __linux
-	inline uint32 honstToNetwork32(uint32 host32)
+	inline uint32 hostToNetwork32(uint32 host32)
 	{
 		return ::htonl(host32);
 	}
@@ -42,8 +41,8 @@ namespace network
 	{
 		return ::ntohs(net16);
 	}
-#else// __linux
-	inline uint32 honstToNetwork32(uint32 host32)
+#else// __Linux
+	inline uint32 hostToNetwork32(uint32 host32)
 	{
 		return CheckCPUendian() ? host32 : BYTESWAP32(host32);//本地大端则与网络相同
 	}
