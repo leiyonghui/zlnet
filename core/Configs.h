@@ -32,7 +32,7 @@ namespace core
 
 		inline const char* get_short_file(const char* file, size_t size)
 		{
-			for (size_t i = size - 1; i >= 0; --i)
+			for (size_t i = size - 2; i >= 0; --i)
 			{
 				switch (file[i]) { case '/': case '\\': return file + i + 1; };
 			}
