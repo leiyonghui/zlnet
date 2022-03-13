@@ -9,13 +9,13 @@ endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	message(status "SYSTEM: ....liunx")
-	ADD_DEFINITIONS(-D__Linux)
+	add_definitions(-D__Linux -D__linux)
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 	message(status "SYSTEM: ....Windows")
-	ADD_DEFINITIONS(-D__Win32)
-	ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS)
+	add_definitions(-D__Win32)
+	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
 #set(CMAKE_CXX_FLAGS_DEBUG -g -std=c++17)

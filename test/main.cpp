@@ -1,3 +1,5 @@
+#ifdef __linux
+
 #include <stdio.h>
 #include "network/Network.h"
 #include "network/Common.h"
@@ -17,7 +19,9 @@ using namespace std;
 
 int main()
 {
-    CAddress addr("127.0.0.1", 99);
-    core_log_trace(addr.toString());
-    return 0;
+	CAddress addr("127.0.0.1", 99);
+	core_log_trace(addr.toString());
+	return 0;
 }
+
+#endif // DEBUG
