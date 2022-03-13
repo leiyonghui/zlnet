@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="CMakeLists.txt" />
     <Text Include="core\CMakeLists.txt" />
     <Text Include="network\CMakeLists.txt" />
     <Text Include="test\CMakeLists.txt" />

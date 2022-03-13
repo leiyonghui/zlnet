@@ -21,6 +21,7 @@
     <Text Include="core\CMakeLists.txt">
       <Filter>core</Filter>
     </Text>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="network\Address.h">

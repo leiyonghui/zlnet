@@ -5,3 +5,4 @@ libs
 bin
 obj
 x64
+/CMakeSettings.json

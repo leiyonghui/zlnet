@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/Configs.h"
+#include "core/NonCopyable.h"
 
 namespace network
 {

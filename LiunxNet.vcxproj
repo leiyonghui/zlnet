@@ -78,6 +78,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <Text Include="CMakeLists.txt" />
     <Text Include="core\CMakeLists.txt" />
     <Text Include="network\CMakeLists.txt" />
     <Text Include="test\CMakeLists.txt" />
@@ -85,15 +86,18 @@
   <ItemGroup>
     <ClInclude Include="core\Common.h" />
     <ClInclude Include="core\Configs.h" />
+    <ClInclude Include="core\NonCopyable.h" />
     <ClInclude Include="core\TimeHelp.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
+    <ClInclude Include="network\Endpoint.h" />
     <ClInclude Include="network\Network.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\TimeHelp.cpp" />
     <ClCompile Include="network\Address.cpp" />
+    <ClCompile Include="network\Endpoint.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="test\main.cpp" />
   </ItemGroup>

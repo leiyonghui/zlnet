@@ -21,6 +21,7 @@
     <Text Include="core\CMakeLists.txt">
       <Filter>core</Filter>
     </Text>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="network\Address.h">
@@ -44,6 +45,12 @@
     <ClInclude Include="core\TimeHelp.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="network\Endpoint.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="core\NonCopyable.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">
@@ -57,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="core\TimeHelp.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Endpoint.cpp">
+      <Filter>network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
