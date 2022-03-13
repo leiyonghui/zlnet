@@ -24,22 +24,22 @@ namespace network
 #ifdef __linux
 	inline uint32 hostToNetwork32(uint32 host32)
 	{
-		return ::htonl(host32);
+		return htonl(host32);
 	}
 
 	inline uint16 hostToNetwork16(uint16 host16)
 	{
-		return ::htons(host16);
+		return htons(host16);
 	}
 
 	inline uint32 networkToHost32(uint32 net32)
 	{
-		return ::ntohl(net32);
+		return ntohl(net32);
 	}
 
 	inline uint16 networkToHost16(uint16 net16)
 	{
-		return ::ntohs(net16);
+		return ntohs(net16);
 	}
 #else// __Linux
 	inline uint32 hostToNetwork32(uint32 host32)
