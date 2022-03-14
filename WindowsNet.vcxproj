@@ -149,16 +149,25 @@
   <ItemGroup>
     <ClInclude Include="core\Common.h" />
     <ClInclude Include="core\Configs.h" />
+    <ClInclude Include="core\NonCopyable.h" />
     <ClInclude Include="core\TimeHelp.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
+    <ClInclude Include="network\Connection.h" />
+    <ClInclude Include="network\Endpoint.h" />
+    <ClInclude Include="network\Listener.h" />
     <ClInclude Include="network\Network.h" />
+    <ClInclude Include="network\TcpListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\TimeHelp.cpp" />
     <ClCompile Include="network\Address.cpp" />
+    <ClCompile Include="network\Connection.cpp" />
+    <ClCompile Include="network\Endpoint.cpp" />
+    <ClCompile Include="network\Listener.cpp" />
     <ClCompile Include="network\Network.cpp" />
+    <ClCompile Include="network\TcpListener.cpp" />
     <ClCompile Include="test\main_win.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

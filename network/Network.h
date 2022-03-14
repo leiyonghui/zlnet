@@ -2,5 +2,11 @@
 
 namespace network
 {
-	void test();
+	class CNetWork
+	{
+	public:
+		CNetWork();
+
+		~CNetWork();
+	};
 }

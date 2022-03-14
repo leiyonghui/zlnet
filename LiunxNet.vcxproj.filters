@@ -57,6 +57,9 @@
     <ClInclude Include="network\Listener.h">
       <Filter>network</Filter>
     </ClInclude>
+    <ClInclude Include="network\TcpListener.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">
@@ -78,6 +81,9 @@
       <Filter>network</Filter>
     </ClCompile>
     <ClCompile Include="network\Listener.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\TcpListener.cpp">
       <Filter>network</Filter>
     </ClCompile>
   </ItemGroup>

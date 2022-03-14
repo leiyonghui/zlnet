@@ -44,10 +44,13 @@ namespace network
 #ifdef __linux
 		int32 flags = ::fcntl(_socket, F_GETFL, 0);
 		flags |= O_NONBLOCK;
-		if (::fcntl(_socket, F_SETFL, flags) < 0)
+		if (int32 rt = ::fcntl(_socket, F_SETFL, flags) < 0) {
 			core_log_warning("SocketOpt::setNonBlock", _socket);
+			return rt;
+		}
+			
 #else // __liunx
-
+		return 0;
 #endif
 	}
 }

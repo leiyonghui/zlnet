@@ -4,7 +4,7 @@ namespace network
 {
 
 
-	Listener::~Listener()
+	IListener::~IListener()
 	{
 
 	}

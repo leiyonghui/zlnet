@@ -5,12 +5,12 @@ namespace network
 {
 	class CEndPoint;
 
-	class Listener : public CNoncopyable
+	class IListener : public CNoncopyable
 	{
 	public:
-		Listener() = default;
+		IListener() = default;
 
-		virtual ~Listener();
+		virtual ~IListener();
 
 		virtual int32 listen() = 0;
 

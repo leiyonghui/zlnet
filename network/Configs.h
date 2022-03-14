@@ -3,6 +3,11 @@
 #include "core/Configs.h"
 #include "core/NonCopyable.h"
 
+#ifdef _WIN32
+#include <winsock2.h>
+#endif // _WIN32
+
+
 namespace network
 {
 	using namespace core;
