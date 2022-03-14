@@ -11,6 +11,8 @@ namespace network
 
 #ifdef __linux
 	using SOCKET = int;
+#define INVALID_SOCKET -1
+
 #endif // __linux
 
 }

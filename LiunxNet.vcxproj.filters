@@ -51,6 +51,12 @@
     <ClInclude Include="core\NonCopyable.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="network\Connection.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Listener.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">
@@ -66,6 +72,12 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="network\Endpoint.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Connection.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Listener.cpp">
       <Filter>network</Filter>
     </ClCompile>
   </ItemGroup>

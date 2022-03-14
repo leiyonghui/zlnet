@@ -91,14 +91,18 @@
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
+    <ClInclude Include="network\Connection.h" />
     <ClInclude Include="network\Endpoint.h" />
     <ClInclude Include="network\Network.h" />
+    <ClInclude Include="network\Listener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\TimeHelp.cpp" />
     <ClCompile Include="network\Address.cpp" />
+    <ClCompile Include="network\Connection.cpp" />
     <ClCompile Include="network\Endpoint.cpp" />
     <ClCompile Include="network\Network.cpp" />
+    <ClCompile Include="network\Listener.cpp" />
     <ClCompile Include="test\main.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
