@@ -95,6 +95,7 @@
     <ClInclude Include="network\Configs.h" />
     <ClInclude Include="network\Connection.h" />
     <ClInclude Include="network\Endpoint.h" />
+    <ClInclude Include="network\EventHanders.h" />
     <ClInclude Include="network\Network.h" />
     <ClInclude Include="network\Listener.h" />
     <ClInclude Include="network\TcpListener.h" />

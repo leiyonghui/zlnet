@@ -66,6 +66,9 @@
     <ClInclude Include="core\Singleton.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="network\EventHanders.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">
