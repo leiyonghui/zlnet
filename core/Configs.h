@@ -5,7 +5,11 @@
 #include <map>
 #include <set>
 #include <string>
+#include <list>
+#include <functional>
+#include <memory>
 #include "TimeHelp.h"
+#include "Singleton.h"
 
 namespace core
 {
@@ -20,6 +24,7 @@ namespace core
 		typedef unsigned int uint32;
 		typedef unsigned long long uint64;
 	}
+	using namespace types;
 
 	namespace logs
 	{
@@ -27,6 +32,12 @@ namespace core
 		inline void printf_log(std::string time, const char* file, int line, Args ...args)
 		{
 			std::cout << time << " " << file << ":" << line;
+			((std::cout << " " << args), ...) << std::endl;
+		}
+
+		template<class ...Args>
+		inline void printf_info(Args ...args)
+		{
 			((std::cout << " " << args), ...) << std::endl;
 		}
 
@@ -43,6 +54,8 @@ namespace core
 #define core_log_trace(...) printf_log(TimeHelp::TimeToString(time(NULL)), get_short_file(__FILE__, sizeof(__FILE__)), __LINE__, ## __VA_ARGS__);
 #define core_log_error(...) printf_log(TimeHelp::TimeToString(time(NULL)), get_short_file(__FILE__, sizeof(__FILE__)), __LINE__, "ERROR", ## __VA_ARGS__);
 #define core_log_warning(...) printf_log(TimeHelp::TimeToString(time(NULL)), get_short_file(__FILE__, sizeof(__FILE__)), __LINE__, "WARNING", ## __VA_ARGS__);
-
+#define core_log_info(...) printf_info("INFO", ## __VA_ARGS__);
 	}
+	using namespace logs;
+
 }

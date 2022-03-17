@@ -5,14 +5,22 @@ namespace network
 {
 	class CEndPoint;
 
-	class CConnection : public CNoncopyable
+	class CConnection : public CNoncopyable, public CPoolObject<CConnection>
 	{
 	public:
 		CConnection(CEndPoint* endPoint);
 
 		virtual ~CConnection();
+	
+	protected:
+		void onAwake() {
+			
+		}
 
-	private:
+		void onRecycle() {
+			
+		}
+
 		CEndPoint* _endPoint;
 	};
 }

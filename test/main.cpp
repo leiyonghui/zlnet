@@ -20,7 +20,7 @@ using namespace std;
 int main()
 {
 	CAddress addr("127.0.0.1", 99);
-	core_log_trace(addr.toString());
+	core_log_trace("test", addr.toString());
 	return 0;
 }
 

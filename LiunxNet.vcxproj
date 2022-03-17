@@ -87,6 +87,8 @@
     <ClInclude Include="core\Common.h" />
     <ClInclude Include="core\Configs.h" />
     <ClInclude Include="core\NonCopyable.h" />
+    <ClInclude Include="core\ObjectPools.h" />
+    <ClInclude Include="core\Singleton.h" />
     <ClInclude Include="core\TimeHelp.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Common.h" />

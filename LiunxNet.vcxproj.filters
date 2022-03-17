@@ -60,6 +60,12 @@
     <ClInclude Include="network\TcpListener.h">
       <Filter>network</Filter>
     </ClInclude>
+    <ClInclude Include="core\ObjectPools.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Singleton.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">

@@ -2,6 +2,7 @@
 
 #include "core/Configs.h"
 #include "core/NonCopyable.h"
+#include "core/ObjectPools.h"
 
 #ifdef _WIN32
 #include <winsock2.h>

@@ -4,7 +4,7 @@
 
 namespace network
 {
-	class CEndPoint : public CNoncopyable
+	class CEndPoint : public CNoncopyable , public CPoolObject<CEndPoint>
 	{
 	public:
 		CEndPoint();
