@@ -9,9 +9,15 @@ namespace network
 	public:
 		CEndPoint();
 
-		CEndPoint(SOCKET s, const CAddress& address);
+		//CEndPoint(SOCKET s, const CAddress& address); 
 
 		~CEndPoint();
+
+		void onAwake(SOCKET s, const CAddress& address);
+
+		void onRecycle();
+
+		void reset();
 
 		inline void setSocket(SOCKET s) { _socket = s; }
 
@@ -28,18 +34,26 @@ namespace network
 
 		int32 setNonblock();
 
+		int32 bind();
+
 		int32 listen();
 
 		int32 connect();
 
-		int32 accept();
+		CEndPointPtr accept();
 
-		int32 read(char* buff);
+		int32 read(char* buff, int32 len);
+
+#ifdef __linux
+		int32 readv(const struct iovec* iov, int32 iovcnt);
+#endif // __linux
 
 		int32 write(char* buff, int32 len);
+
 
 	private:
 		SOCKET _socket;
 		CAddress _address;
 	};
+	typedef std::shared_ptr<CEndPoint> CEndPointPtr;
 }

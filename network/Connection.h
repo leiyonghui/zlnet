@@ -1,15 +1,16 @@
 #pragma once
 #include "Configs.h"
-#include "EventHanders.h"
+#include "EventHandlers.h"
 
 namespace network
 {
 	class CEndPoint;
 
 	class CConnection : 
-		public CEventHander,
+		public CEventHandler,
 		public CPoolObject<CConnection>,
-		public CNoncopyable
+		public CNoncopyable,
+		std::enable_shared_from_this<CConnection>
 	{
 	public:
 		CConnection(CEndPoint* endPoint);

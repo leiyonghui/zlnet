@@ -8,6 +8,7 @@
 #include <list>
 #include <functional>
 #include <memory>
+#include <assert.h>
 #include "TimeHelp.h"
 #include "Singleton.h"
 

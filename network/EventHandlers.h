@@ -1,8 +1,9 @@
 #pragma once
+#include <memory>
 
 namespace network
 {
-	class CEventHander
+	class CEventHandler
 	{
 	public:
 		virtual int handInputEvent() = 0;
@@ -11,4 +12,5 @@ namespace network
 
 		virtual int handErrorEvent() = 0;
 	};
+	typedef std::shared_ptr<CEventHandler> CEventHandlerPtr;
 }

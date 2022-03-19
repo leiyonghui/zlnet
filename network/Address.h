@@ -16,6 +16,8 @@ namespace network
 
 		CAddress(const CAddress& address);
 
+		CAddress(const class sockaddr_in& addr);
+
 		inline  uint32 ip() const { return _ip; }
 
 		inline  uint16 port() const { return _port; }
@@ -28,6 +30,11 @@ namespace network
 
 		static bool String2Ip(const char* string, uint32& address);
 		static bool Ip2String(uint32 address, char *string);
+
+#ifdef __linux
+		sockaddr_in get_sockaddr_in() const;
+#endif // __linux
+
 
 	private:
 		uint32 _ip;

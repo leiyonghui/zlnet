@@ -29,6 +29,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 add_subdirectory(core)
 add_subdirectory(network)
 add_subdirectory(test)
+add_subdirectory(app)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/libs) 

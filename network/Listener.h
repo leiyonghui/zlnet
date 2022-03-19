@@ -1,31 +1,28 @@
 #pragma once
 #include "Configs.h"
-#include "EventHanders.h"
+#include "EventHandlers.h"
+#include "Endpoint.h"
 
 namespace network
 {
-	class CEndPoint;
-
-	class IListener : 
-		public CEventHander,
+	class IListener :
+		public CEventHandler,
 		public CNoncopyable
 	{
 	public:
 		IListener() = default;
 
+		IListener(const CEndPointPtr endpoint);
+
 		virtual ~IListener();
 
-		virtual int32 listen() = 0;
+		virtual void listen() = 0;
 
-		virtual int32 accept() = 0;
+		void setEndPoint(const CEndPointPtr& endpoint) { _endpoint = endpoint; }
 
-		virtual int32 handInputEvent() override;
-
-		virtual int32 handWriteEvent() override;
-
-		virtual int32 handErrorEvent() override;
+		CEndPointPtr getEndPoint() const { return _endpoint; }
 
 	protected:
-		CEndPoint* _endpoint;
+		CEndPointPtr _endpoint;
 	};
 }
