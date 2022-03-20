@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "Listener.h"
 #include "TcpListener.h"
+#include "Connector.h"
 
 #ifdef __linux
 #include <signal.h>
@@ -20,7 +21,6 @@ namespace network
 			core_log_error("WSAStartup");
 		}
 #endif // _WIN32
-		initSignal();
 	}
 
 	CNetWork::~CNetWork()
@@ -33,12 +33,17 @@ namespace network
 			delete iter.second;
 	}
 
+	void CNetWork::init()
+	{
+		initSignal();
+	}
+
 	void CNetWork::start()
 	{
+		init();
 		_isStop = false;
 		while (!_isStop)
 		{
-			//auto now = TimeHelp::miliseconds();
 			_eventDispatcher->process(4);
 		}
 	}
@@ -56,8 +61,44 @@ namespace network
 		_listeners.insert({address, listener});
 	}
 
+	void CNetWork::createTcpConnector(const CAddress& address)
+	{
+		CConnector* connector = nullptr;
+		if (core::find(_connectors, address, connector))
+		{
+			return;
+		}
+		SOCKET socket = createSocket(EPROTO_TCP);
+		CEndPointPtr endPoint = CObjectPool<CEndPoint>::Instance()->create(socket, address);
+		connector = new CConnector(endPoint, this);
+		_connectors.insert({address, connector});
+	}
+
 	void CNetWork::onNewConnection(CConnectionPtr connection)
 	{
+		auto socket = connection->getSocket();
+		auto iter = _connections.insert({socket, connection});
+		_eventDispatcher->registerInputHandler(socket, connection.get());
+	}
+
+	void CNetWork::onCloseConnection(CConnectionPtr connection)
+	{
+
+	}
+
+	void CNetWork::removeConnector(const CAddress& address)
+	{
+		CConnector* connector = nullptr;
+		connector = core::find(_connectors, address, connector);
+		if (!connector)
+		{
+			return;
+		}
+	}
+
+	void CNetWork::removeConnection(SOCKET socket)
+	{
+
 	}
 
 	void CNetWork::initSignal()

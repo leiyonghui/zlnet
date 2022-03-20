@@ -1,8 +1,9 @@
 #pragma once
 #include "network/Configs.h"
+#include "core/FastNode.h"
+#include "core/Timers.h"
 
-namespace server
+namespace app
 {
-	using namespace network;
 	using namespace core;
 }

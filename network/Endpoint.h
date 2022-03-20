@@ -22,12 +22,16 @@ namespace network
 
 		inline void setSocket(SOCKET s) { _socket = s; }
 
+		inline SOCKET getSocket() const { return _socket; }
+
 		inline void setAddress(const CAddress& address) { _address = address; }
 
 		inline void setAddress(uint32 ip, uint16 port) {
 			_address.ip(ip);
 			_address.port(port);
 		}
+
+		CAddress getAddress() const { return _address; };
 
 		inline bool good() { return _socket != INVALID_SOCKET; }
 

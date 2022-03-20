@@ -17,6 +17,8 @@ namespace network
 		virtual void onRecycle();
 
 		virtual ~CConnection();
+
+		SOCKET getSocket() const { return _endPoint->getSocket(); }
 	
 	protected:
 		CEndPointPtr _endPoint;

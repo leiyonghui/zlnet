@@ -96,6 +96,18 @@
     <ClInclude Include="network\TcpConnection.h">
       <Filter>network</Filter>
     </ClInclude>
+    <ClInclude Include="network\Connector.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Timers.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TimerWheel.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\FastNode.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">
@@ -133,6 +145,18 @@
     </ClCompile>
     <ClCompile Include="network\TcpConnection.cpp">
       <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Connector.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="app\ServerApp.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Timers.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TimerWheel.cpp">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

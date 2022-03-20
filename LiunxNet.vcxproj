@@ -89,15 +89,19 @@
     <ClInclude Include="app\ServerApp.h" />
     <ClInclude Include="core\Common.h" />
     <ClInclude Include="core\Configs.h" />
+    <ClInclude Include="core\FastNode.h" />
     <ClInclude Include="core\NonCopyable.h" />
     <ClInclude Include="core\ObjectPools.h" />
     <ClInclude Include="core\Singleton.h" />
     <ClInclude Include="core\TimeHelp.h" />
+    <ClInclude Include="core\Timers.h" />
+    <ClInclude Include="core\TimerWheel.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Callbacks.h" />
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
     <ClInclude Include="network\Connection.h" />
+    <ClInclude Include="network\Connector.h" />
     <ClInclude Include="network\Endpoint.h" />
     <ClInclude Include="network\EpollerEvent.h" />
     <ClInclude Include="network\EventDispatcher.h" />
@@ -109,9 +113,13 @@
     <ClInclude Include="network\TcpListener.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="app\ServerApp.cpp" />
     <ClCompile Include="core\TimeHelp.cpp" />
+    <ClCompile Include="core\Timers.cpp" />
+    <ClCompile Include="core\TimerWheel.cpp" />
     <ClCompile Include="network\Address.cpp" />
     <ClCompile Include="network\Connection.cpp" />
+    <ClCompile Include="network\Connector.cpp" />
     <ClCompile Include="network\Endpoint.cpp" />
     <ClCompile Include="network\EpollerEvent.cpp" />
     <ClCompile Include="network\EventDispatcher.cpp" />

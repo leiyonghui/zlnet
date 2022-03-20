@@ -66,9 +66,9 @@ namespace network
 	{
 		int32 flags = ::fcntl(_socket, F_GETFL, 0);
 		flags |= O_NONBLOCK;
-		if (int32 ok = ::fcntl(_socket, F_SETFL, flags)) {
-			core_log_warning("SocketOpt::setNonBlock", _socket);
-			return ok;
+		if (::fcntl(_socket, F_SETFL, flags)) {
+			core_log_error("SocketOpt::setNonBlock", _socket);
+			return errno;
 		}
 		return 0;
 	}
@@ -77,20 +77,20 @@ namespace network
 	{
 		sockaddr_in addr = _address.get_sockaddr_in();
 		socklen_t addrlen = static_cast<socklen_t>(sizeof(addr));
-		if (int32 ok = ::bind(_socket, (struct sockaddr*)&addr, addrlen))
+		if (::bind(_socket, (struct sockaddr*)&addr, addrlen))
 		{
-			core_log_warning("SocketOpt::bind", errno, strerror(errno));
-			return ok;
+			core_log_error("SocketOpt::bind", errno, strerror(errno));
+			return errno;
 		}
 		return 0;
 	}
 
 	int32 CEndPoint::listen()
 	{
-		if (int32 ok = ::listen(_socket, SOMAXCONN))
+		if (::listen(_socket, SOMAXCONN))
 		{
-			core_log_warning("SocketOpt::listen", errno, strerror(errno));
-			return ok;
+			core_log_error("SocketOpt::listen", errno, strerror(errno));
+			return errno;
 		}
 		return 0;
 	}
@@ -99,20 +99,9 @@ namespace network
 	{
 		sockaddr_in addr = _address.get_sockaddr_in();
 		socklen_t addrlen = static_cast<socklen_t>(sizeof(addr));
-		if (int32 ok = ::connect(_socket, (struct sockaddr*)&addr, addrlen))
+		if (::connect(_socket, (struct sockaddr*)&addr, addrlen))
 		{
-			int32 error = errno;
-			switch (error)
-			{
-			case EINPROGRESS:// The socket is nonblocking and the connection cannot be completed immediately.
-				break;
-			default:
-			{
-				core_log_warning("SocketOpt::connect", error, strerror(error));
-				break;
-			}
-			}
-			return ok;
+			return errno;
 		}
 		return 0;
 	}
@@ -124,7 +113,7 @@ namespace network
 		int32 fd = ::accept(_socket, (struct sockaddr*)&addr, &addrlen);
 		if (fd < 0)
 		{
-			core_log_warning("SocketOpt::accpet", errno, strerror(errno));
+			core_log_error("SocketOpt::accpet", errno, strerror(errno));
 			return nullptr;
 		}
 		CEndPointPtr newEndPoint = CObjectPool<CEndPoint>::Instance()->create(fd, CAddress(addr));
