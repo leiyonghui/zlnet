@@ -12,6 +12,12 @@
 #include "TimeHelp.h"
 #include "Singleton.h"
 
+using std::placeholders::_1;
+using std::placeholders::_2;
+using std::placeholders::_3;
+using std::placeholders::_4;
+using std::placeholders::_5;
+
 namespace core
 {
 	namespace types

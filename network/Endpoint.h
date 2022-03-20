@@ -4,6 +4,7 @@
 
 namespace network
 {
+	typedef std::shared_ptr<class CEndPoint> CEndPointPtr;
 	class CEndPoint : public CNoncopyable , public CPoolObject<CEndPoint>
 	{
 	public:
@@ -55,5 +56,4 @@ namespace network
 		SOCKET _socket;
 		CAddress _address;
 	};
-	typedef std::shared_ptr<CEndPoint> CEndPointPtr;
 }

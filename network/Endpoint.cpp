@@ -125,7 +125,7 @@ namespace network
 		if (fd < 0)
 		{
 			core_log_warning("SocketOpt::accpet", errno, strerror(errno));
-			return NULL;
+			return nullptr;
 		}
 		CEndPointPtr newEndPoint = CObjectPool<CEndPoint>::Instance()->create(fd, CAddress(addr));
 		return newEndPoint;

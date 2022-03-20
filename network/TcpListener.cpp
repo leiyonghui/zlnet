@@ -1,8 +1,10 @@
 #include "TcpListener.h"
+#include "TcpConnection.h"
 
 namespace network
 {
-	CTcpListener::CTcpListener(CEndPointPtr endPoint):IListener(endPoint)
+	CTcpListener::CTcpListener(CEndPointPtr endPoint, onNewConnectionCallback&& connectionCallback):
+		CListener(endPoint, std::forward<onNewConnectionCallback>(connectionCallback))
 	{
 
 	}
@@ -11,23 +13,31 @@ namespace network
 	{
 		if (!_endpoint->good())
 			return;
-		if (_endpoint->bind() < 0)
+		if (_endpoint->bind())
 			return;
 		_endpoint->listen();
 	}
 
-	int32 CTcpListener::handInputEvent()
+	int32 CTcpListener::handleInputEvent()
 	{
-		return int32();
+		CEndPointPtr endPoint = _endpoint->accept();
+		if (endPoint == nullptr)
+			return -1;
+		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(endPoint);
+		if (_connectionCallback)
+		{
+			_connectionCallback(std::static_pointer_cast<CConnection>(connection));
+		}
+		return 0;
 	}
 
-	int32 CTcpListener::handWriteEvent()
+	int32 CTcpListener::handleWriteEvent()
 	{
-		return int32();
+		return int32(0);
 	}
 
-	int32 CTcpListener::handErrorEvent()
+	int32 CTcpListener::handleErrorEvent(uint32 ev)
 	{
-		return int32();
+		return int32(0);
 	}
 }

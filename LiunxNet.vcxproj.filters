@@ -10,6 +10,9 @@
     <Filter Include="test">
       <UniqueIdentifier>{74198901-6520-42f9-8f5f-fb5d291ccfa0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="app">
+      <UniqueIdentifier>{be61432b-172c-48ec-8e6f-d7985fbed124}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="network\CMakeLists.txt">
@@ -22,6 +25,9 @@
       <Filter>core</Filter>
     </Text>
     <Text Include="CMakeLists.txt" />
+    <Text Include="app\CMakeLists.txt">
+      <Filter>app</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="network\Address.h">
@@ -66,7 +72,28 @@
     <ClInclude Include="core\Singleton.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="network\EventHanders.h">
+    <ClInclude Include="network\EventHandlers.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="app\ServerApp.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="app\Configs.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="network\EventPoller.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\EpollerEvent.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\EventDispatcher.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Callbacks.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\TcpConnection.h">
       <Filter>network</Filter>
     </ClInclude>
   </ItemGroup>
@@ -93,6 +120,18 @@
       <Filter>network</Filter>
     </ClCompile>
     <ClCompile Include="network\TcpListener.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\EventPoller.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\EpollerEvent.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\EventDispatcher.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\TcpConnection.cpp">
       <Filter>network</Filter>
     </ClCompile>
   </ItemGroup>

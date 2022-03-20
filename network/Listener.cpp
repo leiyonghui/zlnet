@@ -2,13 +2,20 @@
 
 namespace network
 {
-	IListener::IListener(const CEndPointPtr endpoint):_endpoint(endpoint)
+	CListener::CListener(const CEndPointPtr endpoint, onNewConnectionCallback&& connectionCallback):
+		_endpoint(endpoint),
+		_connectionCallback(std::move(connectionCallback))
 	{
 
 	}
-	IListener::~IListener()
+
+	CListener::~CListener()
 	{
 
+	}
+
+	void CListener::listen()
+	{
 	}
 
 }

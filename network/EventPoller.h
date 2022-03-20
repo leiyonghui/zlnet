@@ -15,6 +15,14 @@ namespace network
 
 		virtual void deregisterHandler(SOCKET socket);
 
+		virtual void registerInputHandler(SOCKET socket, CEventHandler* handler) = 0;
+
+		virtual void deregisterInputHandler(SOCKET socket, CEventHandler* handler) = 0;
+
+		virtual void registerWriteHandler(SOCKET socket, CEventHandler* handler) = 0;
+
+		virtual void deregisterWriteHandler(SOCKET socket, CEventHandler* handler) = 0;
+
 	protected:
 		std::map<SOCKET, CEventHandler*> _handlers;
 	};

@@ -1,0 +1,29 @@
+#pragma once
+#include "Configs.h"
+#include "EventHandlers.h"
+
+namespace network
+{
+	class CEventDispatcher
+	{
+	public:
+		CEventDispatcher();
+
+		virtual ~CEventDispatcher();
+
+		virtual void registerInputHandler(SOCKET socket, CEventHandler* handler);
+
+		virtual void deregisterInputHandler(SOCKET socket, CEventHandler* handler);
+
+		virtual void registerWriteHandler(SOCKET socket, CEventHandler* handler);
+
+		virtual void deregisterWriteHandler(SOCKET socket, CEventHandler* handler);
+
+		virtual void deregisterHandler(SOCKET socket);
+
+		void process(uint32 milli);
+
+	protected:
+		class CEventPoller* _eventPoller;
+	};
+}

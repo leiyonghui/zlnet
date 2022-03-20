@@ -22,6 +22,18 @@ namespace network
 #define  BYTESWAP32(A) (((A&(0xff00'0000))>>24) | ((A&(0x00ff'0000))>>8) | ((A&0x0000'ff00)<<8) | ((A&0x0000'00ff)<<24))
 
 #ifdef __linux
+	inline SOCKET createSocket(EPROTOCOL proto)
+	{
+		SOCKET fd;
+		if (proto == EPROTO_TCP)
+			fd = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		else
+			fd = ::socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+		if (fd == INVALID_SOCKET)
+			core_log_error("craete socket", errno, proto);
+		return fd;
+	}
+
 	inline uint32 hostToNetwork32(uint32 host32)
 	{
 		return htonl(host32);
@@ -42,6 +54,11 @@ namespace network
 		return ntohs(net16);
 	}
 #else// __Linux
+	inline SOCKET createSocket(EPROTOCOL proto)
+	{
+
+	}
+
 	inline uint32 hostToNetwork32(uint32 host32)
 	{
 		return CheckCPUendian() ? host32 : BYTESWAP32(host32);//本地大端则与网络相同

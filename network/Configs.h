@@ -3,6 +3,7 @@
 #include "core/Configs.h"
 #include "core/NonCopyable.h"
 #include "core/ObjectPools.h"
+#include "core/Common.h"
 
 #ifdef _WIN32
 #include <winsock2.h>
@@ -14,6 +15,13 @@ namespace network
 	using namespace core;
 	using namespace core::types;
 	using namespace core::logs;
+
+	enum EPROTOCOL
+	{
+		EPROTO_TCP = 0,
+		EPROTO_UDP = 1,
+		EPROTO_KCP = 2,
+	};
 
 #ifdef __linux
 	using SOCKET = int;

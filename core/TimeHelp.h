@@ -34,6 +34,11 @@ namespace core
 #endif
 		};
 
+		static std::chrono::milliseconds miliseconds()
+		{
+			return std::chrono::duration_cast<std::chrono::milliseconds>(system_clock::now().time_since_epoch());
+		}
+
 		static std::chrono::nanoseconds clock() {
 			return steady_clock::now() - START_CLOCK;
 		};

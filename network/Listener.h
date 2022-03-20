@@ -2,19 +2,21 @@
 #include "Configs.h"
 #include "EventHandlers.h"
 #include "Endpoint.h"
+#include "Network.h"
+#include "Callbacks.h"
 
 namespace network
 {
-	class IListener :
+	class CListener :
 		public CEventHandler,
 		public CNoncopyable
 	{
 	public:
-		IListener() = default;
+		CListener() = default;
 
-		IListener(const CEndPointPtr endpoint);
+		CListener(const CEndPointPtr endpoint, onNewConnectionCallback &&connectionCallback);
 
-		virtual ~IListener();
+		virtual ~CListener();
 
 		virtual void listen() = 0;
 
@@ -22,7 +24,11 @@ namespace network
 
 		CEndPointPtr getEndPoint() const { return _endpoint; }
 
+		void setConnectionCallback(onNewConnectionCallback&& connectionCallback) { _connectionCallback = std::move(connectionCallback); }
+
 	protected:
 		CEndPointPtr _endpoint;
+		onNewConnectionCallback _connectionCallback;
 	};
+	typedef std::shared_ptr<CListener> CListenerPtr;
 }
