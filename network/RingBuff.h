@@ -1,7 +1,7 @@
 #pragma once
 #include "Configs.h"
 
-namespace core
+namespace network
 {
     struct SWritev
     {

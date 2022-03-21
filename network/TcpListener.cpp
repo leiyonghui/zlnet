@@ -9,13 +9,13 @@ namespace network
 
 	}
 
-	void CTcpListener::listen()
+	bool CTcpListener::listen()
 	{
 		if (!_endpoint->good())
-			return;
+			return false;
 		if (_endpoint->bind())
-			return;
-		_endpoint->listen();
+			return false;
+		return _endpoint->listen() == 0;
 	}
 
 	int32 CTcpListener::handleInputEvent()

@@ -18,7 +18,7 @@ namespace network
 
 		virtual ~CListener();
 
-		virtual void listen() = 0;
+		virtual bool listen() = 0;
 
 		void setEndPoint(const CEndPointPtr& endpoint) { _endpoint = endpoint; }
 

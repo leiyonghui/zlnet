@@ -17,10 +17,26 @@ using namespace std;
 #endif // __Linux
 
 
-int main()
+int main(int argc, char** argv)
 {
-	CAddress addr("127.0.0.1", 99);
-	core_log_trace("test", addr.toString());
+	int32 type;
+	cin >> type;
+	if (type == 1)
+	{
+		CAddress addr("127.0.0.1", 9802);
+		CNetWork network;
+		network.createTcpListener(addr);
+		network.start();
+	}
+	else
+	{
+		CAddress addr("127.0.0.1", 9802);
+		CNetWork network;
+		network.createTcpConnector(addr);
+		network.start();
+	}
+
+	//core_log_trace("test", addr.toString());
 	return 0;
 }
 

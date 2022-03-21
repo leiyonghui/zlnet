@@ -10,7 +10,7 @@ namespace network
 
 		CTcpListener(CEndPointPtr endPoint, onNewConnectionCallback&& connectionCallback);
 
-		virtual void listen() override;
+		virtual bool listen() override;
 
 		virtual int32 handleInputEvent() override;
 

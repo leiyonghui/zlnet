@@ -5,6 +5,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <string.h>
 #include <list>
 #include <functional>
 #include <memory>

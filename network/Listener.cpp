@@ -13,9 +13,4 @@ namespace network
 	{
 
 	}
-
-	void CListener::listen()
-	{
-	}
-
 }

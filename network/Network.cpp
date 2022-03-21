@@ -59,6 +59,8 @@ namespace network
 		CEndPointPtr endPoint = CObjectPool<CEndPoint>::Instance()->create(socket, address);
 		listener = new CTcpListener(endPoint, [this](CConnectionPtr connection) { onNewConnection(connection); });
 		_listeners.insert({address, listener});
+		listener->listen();
+		_eventDispatcher->registerInputHandler(socket, listener);
 	}
 
 	void CNetWork::createTcpConnector(const CAddress& address)
@@ -72,10 +74,12 @@ namespace network
 		CEndPointPtr endPoint = CObjectPool<CEndPoint>::Instance()->create(socket, address);
 		connector = new CConnector(endPoint, this);
 		_connectors.insert({address, connector});
+		connector->connect();
 	}
 
 	void CNetWork::onNewConnection(CConnectionPtr connection)
 	{
+		core_log_trace("new connection", connection->getSocket());
 		auto socket = connection->getSocket();
 		auto iter = _connections.insert({socket, connection});
 		_eventDispatcher->registerInputHandler(socket, connection.get());

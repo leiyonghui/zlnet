@@ -109,6 +109,7 @@
     <ClInclude Include="network\EventPoller.h" />
     <ClInclude Include="network\Network.h" />
     <ClInclude Include="network\Listener.h" />
+    <ClInclude Include="network\RingBuff.h" />
     <ClInclude Include="network\TcpConnection.h" />
     <ClInclude Include="network\TcpListener.h" />
   </ItemGroup>
@@ -127,6 +128,7 @@
     <ClCompile Include="network\EventPoller.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="network\Listener.cpp" />
+    <ClCompile Include="network\RingBuff.cpp" />
     <ClCompile Include="network\TcpConnection.cpp" />
     <ClCompile Include="network\TcpListener.cpp" />
     <ClCompile Include="test\main.cpp" />

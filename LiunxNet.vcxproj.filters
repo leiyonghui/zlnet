@@ -108,6 +108,9 @@
     <ClInclude Include="core\FastNode.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="network\RingBuff.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">
@@ -160,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="core\ObjectPools.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="network\RingBuff.cpp">
+      <Filter>network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

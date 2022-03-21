@@ -24,6 +24,7 @@ namespace network
 			onConnected();
 			return;
 		}
+		core_log_error(code, strerror(code));
 		switch (code)
 		{
 		case EINPROGRESS:// The socket is nonblocking and the connection cannot be completed immediately.
