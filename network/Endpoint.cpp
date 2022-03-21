@@ -106,6 +106,13 @@ namespace network
 		return 0;
 	}
 
+	void CEndPoint::setReuseAddr(bool on)
+	{
+		int32 optval = on ? 1 : 0;
+		::setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR,
+			&optval, static_cast<socklen_t>(sizeof optval));
+	}
+
 	CEndPointPtr CEndPoint::accept()
 	{
 		sockaddr_in addr;

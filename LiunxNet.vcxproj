@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app\ServerApp.cpp" />
+    <ClCompile Include="core\ObjectPools.cpp" />
     <ClCompile Include="core\TimeHelp.cpp" />
     <ClCompile Include="core\Timers.cpp" />
     <ClCompile Include="core\TimerWheel.cpp" />

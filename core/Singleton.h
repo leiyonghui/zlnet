@@ -8,6 +8,10 @@ namespace core
 	public:
 		inline static T* Instance()
 		{
+			if (_instance == nullptr)
+			{
+				_instance = new T;
+			}
 			return _instance;
 		}
 

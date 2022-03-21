@@ -6,7 +6,7 @@ namespace network
 		_endpoint(endpoint),
 		_connectionCallback(std::move(connectionCallback))
 	{
-
+		_endpoint->setReuseAddr(true);
 	}
 
 	CListener::~CListener()

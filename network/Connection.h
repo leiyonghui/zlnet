@@ -7,7 +7,7 @@ namespace network
 {
 	class CConnection : 
 		public CEventHandler,
-		//public CPoolObject<CConnection>,
+		public CPoolObject,
 		public CNoncopyable,
 		std::enable_shared_from_this<CConnection>
 	{

@@ -4,8 +4,7 @@
 namespace network
 {
 	class CTcpConnection : 
-		public CConnection,
-		public CPoolObject<CTcpConnection>
+		public CConnection
 	{
 	public:
 		void onAwake(CEndPointPtr endpoint) override;

@@ -5,7 +5,7 @@
 namespace network
 {
 	typedef std::shared_ptr<class CEndPoint> CEndPointPtr;
-	class CEndPoint : public CNoncopyable , public CPoolObject<CEndPoint>
+	class CEndPoint : public CNoncopyable , public CPoolObject
 	{
 	public:
 		CEndPoint();
@@ -38,6 +38,8 @@ namespace network
 		void close();
 
 		int32 setNonblock();
+
+		void setReuseAddr(bool on = true);
 
 		int32 bind();
 

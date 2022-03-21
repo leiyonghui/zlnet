@@ -158,5 +158,8 @@
     <ClCompile Include="core\TimerWheel.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="core\ObjectPools.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

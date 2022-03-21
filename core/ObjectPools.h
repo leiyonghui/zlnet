@@ -42,11 +42,13 @@ namespace core
 		}
 
 		virtual~CObjectPool() {
-			auto iter = _freeObjects.begin();
-			while (iter != _freeObjects.end())
+			
+		}
+
+		void init() {
+			if (CObjectPool<T>::Instance() == nullptr)
 			{
-				delete* iter;
-				_freeObjects.erase(iter++);
+
 			}
 		}
 
@@ -56,7 +58,7 @@ namespace core
 				assignObjs(INIT_OBJECT_SIZE);
 			T* ptr = _freeObjects.front();
 			_freeObjects.pop_front();
-			ptr->setOjectorIter(_usingOjects.insert(_usingOjects.end(), ptr));
+			ptr->setUsing(true);
 			ptr->onAwake(std::forward<Args>(args)...);
 			++_useCount;
 			--_freeCount;
@@ -71,16 +73,13 @@ namespace core
 
 	private:
 		List _freeObjects;
-		List _usingOjects;
 		int32 _useCount;
 		int32 _freeCount;
 
 		void recycle(T* ptr) {
-			auto iter = ptr->getObjectorIter();
-			if (ptr && iter != _usingOjects.end()) {
+			if (ptr && ptr->isUsing()) {
 				ptr->onRecycle();
-				_usingOjects.erase(iter);
-				ptr->setOjectorIter(NullIter);
+				ptr->setUsing(false);
 				_freeObjects.push_back(ptr);
 				++_freeCount;
 				--_useCount;
@@ -97,21 +96,15 @@ namespace core
 	const typename CObjectPool<T>::Iterator CObjectPool<T>::NullIter = CObjectPool<T>::Iterator();
 
 
-	template<class T>
 	class CPoolObject
 	{
-		using Iterator = typename std::list<T*>::iterator;
-		Iterator _poolIter;
+		bool _using;
 	public:
-		CPoolObject() :_poolIter(CObjectPool<T>::NullIter) {}
+		CPoolObject():_using(false){}
 
-		void setOjectorIter(const Iterator& iter) {
-			_poolIter = iter;
-		}
+		void setUsing(bool use) { _using = use; };
 
-		Iterator getObjectorIter() const {
-			return _poolIter;
-		}
+		bool isUsing() const { return _using; }
 	};
 
 }
