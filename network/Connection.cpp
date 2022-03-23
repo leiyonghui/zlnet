@@ -1,5 +1,6 @@
 #include "Connection.h"
 #include "Endpoint.h"
+#include "Network.h"
 
 namespace network
 {
@@ -16,5 +17,10 @@ namespace network
 	CConnection::~CConnection()
 	{
 		
+	}
+
+	void CConnection::setNetWork(CNetWork* network)
+	{
+		_network = network;
 	}
 }

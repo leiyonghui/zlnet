@@ -6,7 +6,9 @@ namespace network
 	CConnector::CConnector(CEndPointPtr endPoint, CNetWork* network):
 		_state(ECONNECT_NONE),
 		_endPoint(endPoint),
-		_netWork(network)
+		_netWork(network),
+		_retryClock(0),
+		_retryTime(0)
 	{
 
 	}
@@ -16,37 +18,32 @@ namespace network
 
 	}
 
-	void CConnector::connect()
+	int32 CConnector::connect()
 	{
 		bool code = _endPoint->connect();
 		if (code == 0)
 		{
 			onConnected();
-			return;
+			return 0;
 		}
 		core_log_error(code, strerror(code));
 		switch (code)
 		{
 		case EINPROGRESS:// The socket is nonblocking and the connection cannot be completed immediately.
-			retry();
 			break;
 		default:
-		{
-			_netWork->removeConnector(_endPoint->getAddress());
-			break;
+			return -1;
 		}
-		}
+		_retryClock = TimeHelp::clock_ms().count() + 2000 * ++_retryTime;
+		setState(ECONNECT_DIS);
+		return 1;
 	}
 
 	void CConnector::onConnected()
 	{
+		_retryTime = 0;
 		setState(ECONNECT_CON);
 		CConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(_endPoint);
 		_netWork->onNewConnection(connection);
-	}
-
-	void CConnector::retry()
-	{
-		setState(ECONNECT_DIS);
 	}
 }

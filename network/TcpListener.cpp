@@ -3,8 +3,8 @@
 
 namespace network
 {
-	CTcpListener::CTcpListener(CEndPointPtr endPoint, onNewConnectionCallback&& connectionCallback):
-		CListener(endPoint, std::forward<onNewConnectionCallback>(connectionCallback))
+	CTcpListener::CTcpListener(CEndPointPtr endPoint, CNetWork* network):
+		CListener(endPoint, network)
 	{
 
 	}
@@ -24,9 +24,9 @@ namespace network
 		if (endPoint == nullptr)
 			return -1;
 		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(endPoint);
-		if (_connectionCallback)
+		if (_network)
 		{
-			_connectionCallback(std::static_pointer_cast<CConnection>(connection));
+			_network->onNewConnection(connection);
 		}
 		return 0;
 	}

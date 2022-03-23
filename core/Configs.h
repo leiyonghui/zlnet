@@ -62,6 +62,7 @@ namespace core
 #define core_log_trace(...) printf_log(TimeHelp::TimeToString(time(NULL)), get_short_file(__FILE__, sizeof(__FILE__)), __LINE__, ## __VA_ARGS__);
 #define core_log_error(...) printf_log(TimeHelp::TimeToString(time(NULL)), get_short_file(__FILE__, sizeof(__FILE__)), __LINE__, "ERROR", ## __VA_ARGS__);
 #define core_log_warning(...) printf_log(TimeHelp::TimeToString(time(NULL)), get_short_file(__FILE__, sizeof(__FILE__)), __LINE__, "WARNING", ## __VA_ARGS__);
+#define core_log_debug(...) printf_log(TimeHelp::TimeToString(time(NULL)), get_short_file(__FILE__, sizeof(__FILE__)), __LINE__, "DEBUG", ## __VA_ARGS__);
 #define core_log_info(...) printf_info("INFO", ## __VA_ARGS__);
 	}
 	using namespace logs;

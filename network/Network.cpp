@@ -44,7 +44,7 @@ namespace network
 		_isStop = false;
 		while (!_isStop)
 		{
-			_eventDispatcher->process(4);
+			process();
 		}
 	}
 
@@ -57,7 +57,7 @@ namespace network
 		}
 		SOCKET socket = createSocket(EPROTO_TCP);
 		CEndPointPtr endPoint = CObjectPool<CEndPoint>::Instance()->create(socket, address);
-		listener = new CTcpListener(endPoint, [this](CConnectionPtr connection) { onNewConnection(connection); });
+		listener = new CTcpListener(endPoint, this);
 		_listeners.insert({address, listener});
 		listener->listen();
 		_eventDispatcher->registerInputHandler(socket, listener);
@@ -73,21 +73,30 @@ namespace network
 		SOCKET socket = createSocket(EPROTO_TCP);
 		CEndPointPtr endPoint = CObjectPool<CEndPoint>::Instance()->create(socket, address);
 		connector = new CConnector(endPoint, this);
+		if (connector->connect() != 0)
+		{
+			delete connector;
+			core_log_error("create tcp connector fail");
+			return;
+		}
 		_connectors.insert({address, connector});
-		connector->connect();
 	}
 
 	void CNetWork::onNewConnection(CConnectionPtr connection)
 	{
-		core_log_trace("new connection", connection->getSocket());
+		core_log_debug("new connection", connection->getSocket());
 		auto socket = connection->getSocket();
 		auto iter = _connections.insert({socket, connection});
 		_eventDispatcher->registerInputHandler(socket, connection.get());
+		connection->setNetWork(this);
 	}
 
 	void CNetWork::onCloseConnection(CConnectionPtr connection)
 	{
-
+		auto socket = connection->getSocket();
+		core_log_debug("close connection", socket);
+		_eventDispatcher->deregisterHandler(socket);
+		_connections.erase(socket);
 	}
 
 	void CNetWork::removeConnector(const CAddress& address)
@@ -95,9 +104,7 @@ namespace network
 		CConnector* connector = nullptr;
 		connector = core::find(_connectors, address, connector);
 		if (!connector)
-		{
 			return;
-		}
 	}
 
 	void CNetWork::removeConnection(SOCKET socket)
@@ -112,6 +119,12 @@ namespace network
 #endif // __linux
 
 	}
+
+	inline void CNetWork::process()
+	{
+		_eventDispatcher->process(4);
+	}
+
 }
 
 

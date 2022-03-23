@@ -8,7 +8,7 @@ namespace network
 	public:
 		CTcpListener() = default;
 
-		CTcpListener(CEndPointPtr endPoint, onNewConnectionCallback&& connectionCallback);
+		CTcpListener(CEndPointPtr endPoint, CNetWork* network);
 
 		virtual bool listen() override;
 

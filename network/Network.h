@@ -31,11 +31,12 @@ namespace network
 	private:
 		void initSignal();
 
+		inline void process();
+
 		bool _isStop;
 		CEventDispatcher* _eventDispatcher;
-		std::map<SOCKET, CConnectionPtr>	_connections;
+		std::map<SOCKET, CConnectionPtr> _connections;
 		std::map<CAddress, class CListener*> _listeners;
 		std::map<CAddress, class CConnector*> _connectors;
-		std::map<int64, class CConnector*> _disConnectors;
 	};
 }

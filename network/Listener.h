@@ -3,7 +3,6 @@
 #include "EventHandlers.h"
 #include "Endpoint.h"
 #include "Network.h"
-#include "Callbacks.h"
 
 namespace network
 {
@@ -14,7 +13,7 @@ namespace network
 	public:
 		CListener() = default;
 
-		CListener(const CEndPointPtr endpoint, onNewConnectionCallback &&connectionCallback);
+		CListener(const CEndPointPtr endpoint, CNetWork* network);
 
 		virtual ~CListener();
 
@@ -24,11 +23,9 @@ namespace network
 
 		CEndPointPtr getEndPoint() const { return _endpoint; }
 
-		void setConnectionCallback(onNewConnectionCallback&& connectionCallback) { _connectionCallback = std::move(connectionCallback); }
-
 	protected:
 		CEndPointPtr _endpoint;
-		onNewConnectionCallback _connectionCallback;
+		CNetWork* _network;
 	};
 	typedef std::shared_ptr<CListener> CListenerPtr;
 }

@@ -14,16 +14,16 @@ namespace network
 
 	int32 CTcpConnection::handleInputEvent()
 	{
-		return int32();
+		return int32(0);
 	}
 
 	int32 CTcpConnection::handleWriteEvent()
 	{
-		return int32();
+		return int32(0);
 	}
 
 	int32 CTcpConnection::handleErrorEvent(uint32 ev)
 	{
-		return int32();
+		return int32(0);
 	}
 }

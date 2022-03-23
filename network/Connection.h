@@ -20,8 +20,11 @@ namespace network
 
 		SOCKET getSocket() const { return _endPoint->getSocket(); }
 	
+		void setNetWork(class CNetWork* network);
+
 	protected:
 		CEndPointPtr _endPoint;
+		class CNetWork* _network;
 	};
 	typedef std::shared_ptr<CConnection> CConnectionPtr;
 }

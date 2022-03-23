@@ -2,9 +2,9 @@
 
 namespace network
 {
-	CListener::CListener(const CEndPointPtr endpoint, onNewConnectionCallback&& connectionCallback):
+	CListener::CListener(const CEndPointPtr endpoint, CNetWork* network):
 		_endpoint(endpoint),
-		_connectionCallback(std::move(connectionCallback))
+		_network(network)
 	{
 		_endpoint->setReuseAddr(true);
 	}
