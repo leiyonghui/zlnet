@@ -14,6 +14,7 @@ namespace network
 
 	int32 CTcpConnection::handleInputEvent()
 	{
+
 		return int32(0);
 	}
 

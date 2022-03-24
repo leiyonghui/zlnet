@@ -99,6 +99,11 @@ namespace network
 		_connections.erase(socket);
 	}
 
+	void CNetWork::onInputConnection(CConnectionPtr connection)
+	{
+
+	}
+
 	void CNetWork::removeConnector(const CAddress& address)
 	{
 		CConnector* connector = nullptr;

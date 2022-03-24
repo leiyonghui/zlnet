@@ -24,6 +24,8 @@ namespace network
 
 		void onCloseConnection(CConnectionPtr connection);
 
+		void onInputConnection(CConnectionPtr connection);
+
 		void removeConnector(const CAddress& address);
 
 		void removeConnection(SOCKET socket);
