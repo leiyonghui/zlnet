@@ -35,6 +35,12 @@ namespace network
 
 		inline void process();
 
+		void handleInputEvent(SOCKET socket);
+
+		void handleWriteEvent(SOCKET socket);
+
+		void handleErrorEvent(SOCKET socket);
+
 		bool _isStop;
 		CEventDispatcher* _eventDispatcher;
 		std::map<SOCKET, CConnectionPtr> _connections;
