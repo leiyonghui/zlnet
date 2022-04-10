@@ -14,25 +14,19 @@ namespace network
 	class CConnector
 	{
 	public:
-		CConnector(CEndPointPtr endPoint, CNetWork* network);
+		CConnector(CEndPointUnPtr&& endPoint, CNetWork* network);
 
 		virtual ~CConnector();
 
 		int32 connect();
 
-		void setEndPoint(CEndPointPtr endPoint) { _endPoint = endPoint; }
-
 		void onConnected();
 
 		void setState(ECONNECT_STATE state) { _state = state; }
 
-		int64 getRetryClock() const { return _retryClock; };
-
 	protected:
 		ECONNECT_STATE _state;
-		CEndPointPtr _endPoint;
+		CEndPointUnPtr _endPoint;
 		CNetWork* _netWork;
-		int64 _retryClock;
-		int32 _retryTime;
 	};
 }

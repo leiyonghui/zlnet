@@ -8,4 +8,5 @@ namespace network
 
 	typedef std::function<void(CConnectionPtr connection)> onNewConnectionCallback;
 
+	typedef std::function<void(CConnectionPtr connection, class CRingBuff* ringBuff)> onConnectionInputCallback;
 }

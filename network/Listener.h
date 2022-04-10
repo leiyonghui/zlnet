@@ -1,8 +1,6 @@
 #pragma once
 #include "Configs.h"
 #include "EventHandlers.h"
-#include "Endpoint.h"
-#include "Network.h"
 
 namespace network
 {
@@ -11,21 +9,16 @@ namespace network
 		public CNoncopyable
 	{
 	public:
-		CListener() = default;
-
-		CListener(const CEndPointPtr endpoint, CNetWork* network);
+		CListener(EHandlerType type, CEndPointUnPtr&& endpoint, CEventDispatcher* eventDispatcher);
 
 		virtual ~CListener();
 
 		virtual bool listen() = 0;
 
-		void setEndPoint(const CEndPointPtr& endpoint) { _endpoint = endpoint; }
-
-		CEndPointPtr getEndPoint() const { return _endpoint; }
+		void setNewCallback(onNewConnectionCallback&& callback) { _newConnectionCallback = std::move(callback); };
 
 	protected:
-		CEndPointPtr _endpoint;
-		CNetWork* _network;
+		onNewConnectionCallback _newConnectionCallback;
 	};
 	typedef std::shared_ptr<CListener> CListenerPtr;
 }

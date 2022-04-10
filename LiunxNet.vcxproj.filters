@@ -111,6 +111,9 @@
     <ClInclude Include="network\RingBuff.h">
       <Filter>network</Filter>
     </ClInclude>
+    <ClInclude Include="network\Buffs.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">

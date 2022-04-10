@@ -56,11 +56,12 @@ namespace network
 			return;
 		}
 		SOCKET socket = createSocket(EPROTO_TCP);
-		CEndPointPtr endPoint = CObjectPool<CEndPoint>::Instance()->create(socket, address);
-		listener = new CTcpListener(endPoint, this);
+		listener = new CTcpListener(CObjectPool<CEndPoint>::Instance()->createUnique(socket, address), _eventDispatcher);
 		_listeners.insert({address, listener});
+		listener->setNewCallback([this](CConnectionPtr connection) {
+			onNewConnection(connection);
+		});
 		listener->listen();
-		_eventDispatcher->registerInputHandler(socket, listener);
 	}
 
 	void CNetWork::createTcpConnector(const CAddress& address)
@@ -88,7 +89,6 @@ namespace network
 		auto socket = connection->getSocket();
 		auto iter = _connections.insert({socket, connection});
 		_eventDispatcher->registerInputHandler(socket, connection.get());
-		connection->setNetWork(this);
 	}
 
 	void CNetWork::onCloseConnection(CConnectionPtr connection)
@@ -122,7 +122,6 @@ namespace network
 #ifdef __linux
 		signal(SIGPIPE, SIG_IGN);
 #endif // __linux
-
 	}
 
 	inline void CNetWork::process()

@@ -122,6 +122,14 @@ namespace network
 		return _writerv;
 	}
 
+	void CRingBuff::clear()
+	{
+		_front = 0;
+		_end = 0;
+		_size = 0;
+		_writerv->clear();
+	}
+
 	void CRingBuff::ensure(uint32 capacity)
 	{
 		if (_capacity >= capacity)

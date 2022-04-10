@@ -24,36 +24,25 @@ namespace network
 		for (int32 i = 0; i < cnt; i++)
 		{
 			const epoll_event& event = _events[i];
-			//CEventHandler* handler = (CEventHandler*)event.data.ptr;
-			SOCKET socket = event.data.u32;
-			auto iter = _handlers.find(socket);
-			if (iter == _handlers.end())
-			{
-				assert(false);
-				continue;
-			}
+			CEventHandler* handler = (CEventHandler*)event.data.ptr;
 			const uint16& ev = event.events;
+			int32 events = handler->getEvent();
 			if (ev & (EPOLLERR | EPOLLHUP) && !(ev & EPOLLIN))
 			{
-				iter->second->handleErrorEvent(ev);
+				if (events & ev)
+					handler->handleErrorEvent(ev);
 			}
 			else
 			{
 				if (ev & EPOLLIN)
 				{
-					iter->second->handleInputEvent();
+					if (events & ev)
+						handler->handleInputEvent();
 				}
 				if (ev & EPOLLOUT)
 				{
-					iter = _handlers.find(socket);
-					if (iter != _handlers.end())
-					{
-						iter->second->handleWriteEvent();
-					}
-					else
-					{
-						core_log_warning("epoll null handler", socket);
-					}
+					if (events & ev)
+						handler->handleWriteEvent();
 				}
 			}			
 		}
@@ -93,14 +82,12 @@ namespace network
 		CEventPoller::deregisterHandler(socket);
 	}
 
-	void CEpollerEvent::updateHandler(SOCKET socket, CEventHandler* handler, uint32 ev)
+	void CEpollerEvent::updateHandler(SOCKET socket, CEventHandler* handler, int32 events)
 	{
-		handler->updateEvent(ev);
 		epoll_event event;
-		event.events = ev;
-		event.data.u32 = socket;
-		auto iter = _handlers.find(socket);
-		if (iter != _handlers.end())
+		event.events = events;
+		event.data.ptr = handler;
+		if (hasHandler(handler))
 		{
 			if (::epoll_ctl(_epfd, EPOLL_CTL_MOD, socket, &event))
 			{
@@ -112,14 +99,14 @@ namespace network
 		{
 			if (::epoll_ctl(_epfd, EPOLL_CTL_ADD, socket, &event) < 0)
 			{
-				core_log_error("epoll mod error", errno);
+				core_log_error("epoll add error", errno);
 				return;
 			}
 			registerHandler(socket, handler);
 		}
+		handler->updateEvent(events);
 	}
 }
-
 
 #endif // __linux
 

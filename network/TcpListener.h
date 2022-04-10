@@ -8,15 +8,11 @@ namespace network
 	public:
 		CTcpListener() = default;
 
-		CTcpListener(CEndPointPtr endPoint, CNetWork* network);
+		CTcpListener(CEndPointUnPtr&& endPoint, CEventDispatcher* eventDispatcher);
 
 		virtual bool listen() override;
 
 		virtual int32 handleInputEvent() override;
-
-		virtual int32 handleWriteEvent() override;
-
-		virtual int32 handleErrorEvent(uint32 ev) override;
 	};
 	typedef std::shared_ptr<CTcpListener> CTcpListenerPtr;
 }

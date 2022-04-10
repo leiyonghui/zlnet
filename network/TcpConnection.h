@@ -4,18 +4,30 @@
 namespace network
 {
 	class CTcpConnection : 
-		public CConnection
+		public CConnection,
+		public std::enable_shared_from_this<CTcpConnection>
 	{
 	public:
-		void onAwake(CEndPointPtr endpoint) override;
+		virtual ~CTcpConnection();
 
-		void onRecycle() override;
+		void onAwake(EHandlerType type, CEndPointUnPtr&& endPoint);
+
+		void onRecycle();
 
 		virtual int32 handleInputEvent() override;
 
 		virtual int32 handleWriteEvent() override;
 
-		virtual int32 handleErrorEvent(uint32 ev) override;
+	protected:
+		int32 handleRead();
+
+		void handleClose();
+
+		void handleError();
+
+	protected:
+
+		class CRingBuff* _ringBuff;
 
 	};
 	typedef std::shared_ptr<CTcpConnection> CTcpConnectionPtr;

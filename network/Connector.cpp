@@ -3,12 +3,10 @@
 
 namespace network
 {
-	CConnector::CConnector(CEndPointPtr endPoint, CNetWork* network):
+	CConnector::CConnector(CEndPointUnPtr&& endPoint, CNetWork* network):
 		_state(ECONNECT_NONE),
-		_endPoint(endPoint),
-		_netWork(network),
-		_retryClock(0),
-		_retryTime(0)
+		_endPoint(std::move(endPoint)),
+		_netWork(network)
 	{
 
 	}
@@ -34,14 +32,12 @@ namespace network
 		default:
 			return -1;
 		}
-		_retryClock = TimeHelp::clock_ms().count() + 2000 * ++_retryTime;
 		setState(ECONNECT_DIS);
 		return 1;
 	}
 
 	void CConnector::onConnected()
 	{
-		_retryTime = 0;
 		setState(ECONNECT_CON);
 		CConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(_endPoint);
 		_netWork->onNewConnection(connection);

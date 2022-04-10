@@ -4,23 +4,23 @@
 
 namespace network
 {
-	void CConnection::onAwake(CEndPointPtr endPoint)
-	{
-		_endPoint = endPoint;
-	}
-	
-	void CConnection::onRecycle()
-	{
-
-	}
-
 	CConnection::~CConnection()
 	{
-		
+
 	}
 
-	void CConnection::setNetWork(CNetWork* network)
+	void CConnection::onAwake(EHandlerType type, CEndPointUnPtr&& endPoint)
 	{
-		_network = network;
+		_type = type;
+		_endpoint = std::move(endPoint);
+	}
+
+	void CConnection::onRecycle()
+	{
+		_type = EHandler_None;
+		_event = 0;
+		_endpoint.reset();
+		_network = nullptr;
+		assert(_state == EDisconnected);
 	}
 }

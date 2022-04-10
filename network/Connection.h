@@ -5,26 +5,34 @@
 
 namespace network
 {
-	class CConnection : 
+	enum EConnectionState
+	{
+		EConnected = 1,			//已连接
+		EDisconnecting = 2,		//半关闭中
+		EDisconnected = 3,		//关闭
+	};
+
+	class CConnection :
 		public CEventHandler,
 		public CPoolObject,
-		public CNoncopyable,
-		std::enable_shared_from_this<CConnection>
+		public CNoncopyable
 	{
 	public:
-		virtual void onAwake(CEndPointPtr endPoint);
-
-		virtual void onRecycle();
+		CConnection() :_state(EDisconnected) {};
 
 		virtual ~CConnection();
 
-		SOCKET getSocket() const { return _endPoint->getSocket(); }
-	
-		void setNetWork(class CNetWork* network);
+		virtual void onAwake(EHandlerType type, CEndPointUnPtr&& endPoint);
+
+		virtual void onRecycle();
+
+		EConnectionState getState() { return _state; }
+
+		void setState(EConnectionState state) { _state = state; }
 
 	protected:
-		CEndPointPtr _endPoint;
-		class CNetWork* _network;
+		EConnectionState _state;
+
 	};
 	typedef std::shared_ptr<CConnection> CConnectionPtr;
 }

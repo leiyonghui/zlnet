@@ -9,6 +9,8 @@ namespace network
 	public:
 		CEventPoller() = default;
 
+		virtual ~CEventPoller();
+
 		virtual void poll(int32 milli) = 0;
 
 		virtual void registerHandler(SOCKET socket, CEventHandler* handler);
@@ -22,6 +24,8 @@ namespace network
 		virtual void registerWriteHandler(SOCKET socket, CEventHandler* handler) = 0;
 
 		virtual void deregisterWriteHandler(SOCKET socket, CEventHandler* handler) = 0;
+
+		bool hasHandler(CEventHandler* handler);
 
 	protected:
 		std::map<SOCKET, CEventHandler*> _handlers;

@@ -97,6 +97,7 @@
     <ClInclude Include="core\Timers.h" />
     <ClInclude Include="core\TimerWheel.h" />
     <ClInclude Include="network\Address.h" />
+    <ClInclude Include="network\Buffs.h" />
     <ClInclude Include="network\Callbacks.h" />
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
