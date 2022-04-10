@@ -7,9 +7,10 @@ namespace network
 {
 	enum EConnectionState
 	{
-		EConnected = 1,			//已连接
-		EDisconnecting = 2,		//半关闭中
-		EDisconnected = 3,		//关闭
+		EConnecting		=	1,		//正在连接
+		EConnected		=	2,		//已连接
+		EDisconnecting	=	3,		//半关闭中
+		EDisconnected	=	4,		//关闭
 	};
 
 	class CConnection :
@@ -30,9 +31,14 @@ namespace network
 
 		void setState(EConnectionState state) { _state = state; }
 
+		void setInputCallback(onConnectionInputCallback&& callback) { _inputCallback = std::move(callback); }
+
+		void setCloseCallback(onConnectionCloseCallback&& callback) { _closeCallback = std::move(callback); };
+
 	protected:
 		EConnectionState _state;
-
+		onConnectionInputCallback _inputCallback;
+		onConnectionCloseCallback _closeCallback;
 	};
 	typedef std::shared_ptr<CConnection> CConnectionPtr;
 }

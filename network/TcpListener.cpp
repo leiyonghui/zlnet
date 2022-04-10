@@ -24,6 +24,7 @@ namespace network
 		if (endPoint == nullptr)
 			return -1;
 		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(std::move(endPoint));
+		_eventDispatcher->registerInputHandler(endPoint->getSocket(), connection.get());
 		if (_newConnectionCallback)
 		{
 			_newConnectionCallback(connection);

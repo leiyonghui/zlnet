@@ -4,6 +4,7 @@
 
 #ifdef __linux
 #include <netinet/in.h>
+#include <sys/epoll.h>
 #endif // __linux
 
 
@@ -11,7 +12,8 @@ namespace network
 {
 	CTcpConnection::~CTcpConnection()
 	{
-		delete _ringBuff;
+		delete _inputBuff;
+		delete _outBuff;
 	}
 
 	void CTcpConnection::onAwake(EHandlerType type, CEndPointUnPtr&& endPoint)
@@ -22,7 +24,8 @@ namespace network
 	void CTcpConnection::onRecycle()
 	{
 		CConnection::onRecycle();
-		_ringBuff->clear();
+		_inputBuff->clear();
+		_outBuff->clear();
 	}
 
 	int32 CTcpConnection::handleInputEvent()
@@ -32,13 +35,13 @@ namespace network
 
 	int32 CTcpConnection::handleWriteEvent()
 	{
-		return int32(0);
+		return handleWrite();
 	}
 
 #ifdef __linux
 	int32 CTcpConnection::handleRead()
 	{
-		SWritev* writev = _ringBuff->writerv();
+		SWritev* writev = _inputBuff->writerv();
 		int32 writeable = writev[0].len + writev[1].len;
 		constexpr int32 extralen = 65536;
 		char extrabuf[extralen];
@@ -59,16 +62,16 @@ namespace network
 		{
 			if (cnt >= writeable)
 			{
-				_ringBuff->write(writeable);
-				_ringBuff->write(extrabuf, cnt - writeable);
+				_inputBuff->write(writeable);
+				_inputBuff->write(extrabuf, cnt - writeable);
 			}
 			else
 			{
-				_ringBuff->write(cnt);
+				_inputBuff->write(cnt);
 			}
-			if (_network)
+			if (_inputCallback)
 			{
-				_network->onInputConnection(SHARED_THIS(CConnection));
+				_inputCallback(SHARED_THIS(CConnection), _inputBuff);
 			}
 		}
 		else if(cnt == 0)
@@ -82,14 +85,27 @@ namespace network
 		return cnt;
 	}
 
+	int32 CTcpConnection::handleWrite()
+	{
+		auto isWriting = _event & EPOLLOUT;
+		if (!isWriting)
+			return 0;
+		//to do
+	}
+
 	void CTcpConnection::handleClose()
 	{
-
+		setState(EDisconnecting);
+		if (_closeCallback)
+		{
+			_closeCallback(SHARED_THIS(CConnection));
+		}
 	}
 
 	void CTcpConnection::handleError()
 	{
-
+		core_log_error("handleError", _endpoint->getSocket());
+		//handleClose();
 	}
 #else // __liunx
 

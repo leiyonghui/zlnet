@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "Listener.h"
 #include "TcpListener.h"
+#include "TcpConnection.h"
 #include "Connector.h"
 
 #ifdef __linux
@@ -88,18 +89,23 @@ namespace network
 		core_log_debug("new connection", connection->getSocket());
 		auto socket = connection->getSocket();
 		auto iter = _connections.insert({socket, connection});
-		_eventDispatcher->registerInputHandler(socket, connection.get());
+		connection->setInputCallback([this](CConnectionPtr connection, CRingBuff* ringBuff) {
+			onInputConnection(connection, ringBuff);
+		});
+		connection->setCloseCallback([this](CConnectionPtr connection) {
+			onCloseConnection(connection);
+		});
 	}
 
 	void CNetWork::onCloseConnection(CConnectionPtr connection)
 	{
+		core_log_debug("close connection", connection->getSocket());
 		auto socket = connection->getSocket();
-		core_log_debug("close connection", socket);
-		_eventDispatcher->deregisterHandler(socket);
 		_connections.erase(socket);
+		//to do
 	}
 
-	void CNetWork::onInputConnection(CConnectionPtr connection)
+	void CNetWork::onInputConnection(CConnectionPtr connection, CRingBuff* ringBuff)
 	{
 
 	}

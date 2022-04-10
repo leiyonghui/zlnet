@@ -51,9 +51,9 @@ namespace network
 
 		void updateEvent(int32 event) { _event = event; }
 
-		SOCKET getSocket() { _endpoint->getSocket(); }
+		SOCKET getSocket() const { _endpoint->getSocket(); }
 
-		EHandlerType getType() { return _type; }
+		EHandlerType getType() const { return _type; }
 
 		void setEventDispatcher(CEventDispatcher* eventDispatcher) { _eventDispatcher = eventDispatcher; };
 

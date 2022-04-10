@@ -1,32 +1,29 @@
 #pragma once
 #include "Endpoint.h"
 #include "Network.h"
+#include "Connection.h"
 
 namespace network
 {
-	enum ECONNECT_STATE
-	{
-		ECONNECT_NONE = 0,
-		ECONNECT_CON = 1,
-		ECONNECT_DIS = 2,
-	};
-
 	class CConnector
 	{
 	public:
-		CConnector(CEndPointUnPtr&& endPoint, CNetWork* network);
+		CConnector(const CAddress & address, CEventDispatcher* eventDispatcher);
 
 		virtual ~CConnector();
 
 		int32 connect();
 
+		void connecting();
+
 		void onConnected();
 
-		void setState(ECONNECT_STATE state) { _state = state; }
+		void setState(EConnectionState state) { _state = state; }
 
 	protected:
-		ECONNECT_STATE _state;
+		EConnectionState _state;
+		CAddress _address;
+		CEventDispatcher* _eventDispatcher;
 		CEndPointUnPtr _endPoint;
-		CNetWork* _netWork;
 	};
 }

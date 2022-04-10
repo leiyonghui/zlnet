@@ -24,7 +24,7 @@ namespace network
 
 		void onCloseConnection(CConnectionPtr connection);
 
-		void onInputConnection(CConnectionPtr connection);
+		void onInputConnection(CConnectionPtr connection, CRingBuff* ringBuff);
 
 		void removeConnector(const CAddress& address);
 

@@ -20,7 +20,6 @@ namespace network
 		_type = EHandler_None;
 		_event = 0;
 		_endpoint.reset();
-		_network = nullptr;
 		assert(_state == EDisconnected);
 	}
 }

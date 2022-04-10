@@ -1,12 +1,14 @@
 #include "Connector.h"
 #include "TcpConnection.h"
+#include "EventDispatcher.h"
 
 namespace network
 {
-	CConnector::CConnector(CEndPointUnPtr&& endPoint, CNetWork* network):
-		_state(ECONNECT_NONE),
-		_endPoint(std::move(endPoint)),
-		_netWork(network)
+	CConnector::CConnector(const CAddress& address, CEventDispatcher* eventDispatcher):
+		_state(EDisconnected),
+		_address(address),
+		_eventDispatcher(eventDispatcher),
+		_endPoint(nullptr)
 	{
 
 	}
@@ -18,6 +20,7 @@ namespace network
 
 	int32 CConnector::connect()
 	{
+		setState(EConnecting);
 		bool code = _endPoint->connect();
 		if (code == 0)
 		{
@@ -32,14 +35,19 @@ namespace network
 		default:
 			return -1;
 		}
-		setState(ECONNECT_DIS);
+		setState(EDisconnected);
 		return 1;
+	}
+
+	void CConnector::connecting()
+	{
+
 	}
 
 	void CConnector::onConnected()
 	{
-		setState(ECONNECT_CON);
-		CConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(_endPoint);
-		_netWork->onNewConnection(connection);
+		//setState(ECONNECT_CON);
+		//CConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(_endPoint);
+		//_netWork->onNewConnection(connection);
 	}
 }

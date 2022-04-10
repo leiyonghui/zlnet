@@ -21,14 +21,15 @@ namespace network
 	protected:
 		int32 handleRead();
 
+		int32 handleWrite();
+
 		void handleClose();
 
 		void handleError();
 
 	protected:
-
-		class CRingBuff* _ringBuff;
-
+		class CRingBuff* _inputBuff;
+		class CRingBuff* _outBuff;
 	};
 	typedef std::shared_ptr<CTcpConnection> CTcpConnectionPtr;
 }
