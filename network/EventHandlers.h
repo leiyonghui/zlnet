@@ -8,9 +8,10 @@ namespace network
 {
 	enum EHandlerType
 	{
-		EHandler_None = 0,
-		EHandler_TcpListener = 1,
-		EHandler_TcpConnection = 2,
+		EHandler_None			=	0,
+		EHandler_TcpListener	=	1,
+		EHandler_TcpConnection	=	2,
+		EHandler_TcpConnector	=	3,
 	};
 
 	class CEventHandler

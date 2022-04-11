@@ -39,6 +39,6 @@ namespace network
 		CEventDispatcher* _eventDispatcher;
 		std::map<SOCKET, CConnectionPtr> _connections;
 		std::map<CAddress, class CListener*> _listeners;
-		std::map<CAddress, class CConnector*> _connectors;
+		//std::map<CAddress, class CConnector*> _connectors;
 	};
 }

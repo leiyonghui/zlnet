@@ -1,10 +1,12 @@
 #include "TimerSet.h"
+#include <assert.h>
+#include "Configs.h"
 
 namespace core
 {
 	namespace timerset
 	{
-		TimerSet::TimerSet():_timer(new TimerSetImpl()) {
+		TimerSet::TimerSet() :_timer(new TimerSetImpl()) {
 
 		}
 
@@ -33,9 +35,46 @@ namespace core
 			_timer->_delTimer(event);
 		}
 
+		TimerSetImpl::~TimerSetImpl()
+		{
+			while (!_invalidEvents.empty())
+			{
+				delete* _invalidEvents.begin();
+				_invalidEvents.pop_front();
+			}
+		}
+
 		void TimerSetImpl::_update(Tick now)
 		{
-
+			_curTick = now;
+			while (!_queue.empty())
+			{
+				auto top = _queue.begin();
+				if (top->first > _curTick)
+				{
+					break;
+				}
+				auto& slot = top->second->_slot;
+				if (!slot.empty())
+				{
+					for (auto iter = slot.begin(); iter != slot.end(); )
+					{
+						auto event = iter->data();
+						assert(event->tick() == top->first);
+						iter = iter->next();
+						event->leave();
+						_onTimeout(event);
+					}
+				}
+				assert(slot.empty());
+				delete top->second;
+				_queue.erase(top);
+			}
+			while (!_invalidEvents.empty())
+			{
+				delete* _invalidEvents.begin();
+				_invalidEvents.pop_front();
+			}
 		}
 
 		void TimerSetImpl::_addTimer(TimerEvent* event)
@@ -51,9 +90,41 @@ namespace core
 
 		void TimerSetImpl::_delTimer(TimerEvent* event)
 		{
-			delete event;
+			event->leave();
+			event->_invalid = true;
+			_invalidEvents.push_back(event);
 		}
-		
 
+		void TimerSetImpl::_onTimeout(TimerEvent* event)
+		{
+			assert(event->_tick <= _curTick);
+			try
+			{
+				if (!event->_invalid)
+				{
+					event->onTimeout();
+					if (!event->_invalid)
+					{
+						if (event->_period > 0 && (event->_count > 1 || !event->_count))
+						{
+							if (event->_count)
+								event->_count--;
+							event->_tick += event->_period;
+							_addTimer(event);
+						}
+						else
+						{
+							//_delTimer(event);
+							delete event;
+						}
+					}
+				}
+			}
+			catch (std::exception e)
+			{
+				//_delTimer(event);
+				delete event;
+			}
+		}
 	}
 }

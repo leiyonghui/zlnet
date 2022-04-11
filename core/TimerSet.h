@@ -29,15 +29,20 @@ namespace core
 		protected:
 			TimerSetImpl() :_curTick(0) {}
 
+			virtual ~TimerSetImpl();
+
 			void _update(Tick now);
 
 			void _addTimer(TimerEvent* event);
 
 			void _delTimer(TimerEvent* event);
 
+			void _onTimeout(TimerEvent* event);
+
 		private:
-			std::map<Tick, TimerSlot*> _queue;
 			Tick _curTick;
+			std::map<Tick, TimerSlot*> _queue;
+			std::list<TimerEvent*> _invalidEvents;
 		};
 	}
 }

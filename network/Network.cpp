@@ -4,7 +4,7 @@
 #include "Listener.h"
 #include "TcpListener.h"
 #include "TcpConnection.h"
-#include "Connector.h"
+#include "TcpConnector.h"
 
 #ifdef __linux
 #include <signal.h>
@@ -67,21 +67,12 @@ namespace network
 
 	void CNetWork::createTcpConnector(const CAddress& address)
 	{
-		CConnector* connector = nullptr;
+		/*CConnector* connector = nullptr;
 		if (core::find(_connectors, address, connector))
 		{
 			return;
 		}
-		SOCKET socket = createSocket(EPROTO_TCP);
-		CEndPointPtr endPoint = CObjectPool<CEndPoint>::Instance()->create(socket, address);
-		connector = new CConnector(endPoint, this);
-		if (connector->connect() != 0)
-		{
-			delete connector;
-			core_log_error("create tcp connector fail");
-			return;
-		}
-		_connectors.insert({address, connector});
+		_connectors.insert({address, connector});*/
 	}
 
 	void CNetWork::onNewConnection(CConnectionPtr connection)
@@ -112,10 +103,10 @@ namespace network
 
 	void CNetWork::removeConnector(const CAddress& address)
 	{
-		CConnector* connector = nullptr;
+		/*CConnector* connector = nullptr;
 		connector = core::find(_connectors, address, connector);
 		if (!connector)
-			return;
+			return;*/
 	}
 
 	void CNetWork::removeConnection(SOCKET socket)
