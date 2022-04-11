@@ -22,6 +22,7 @@ namespace core
 		{
 			event->leave();
 			event->_invalid = true;
+			_invalidEvents.push_back(event);
 		}
 
 		void TimerWheel::update(Tick now)
@@ -49,17 +50,23 @@ namespace core
 			assert(event->_tick <= _curTick);
 			try
 			{
-				event->onTimeout();
-				if (!event->_invalid && event->_period > 0 && (event->_count > 1 || !event->_count))
+				if (!event->_invalid)
 				{
-					if (event->_count)
-						event->_count--;
-					event->_tick += event->_period;
-					_addTimer(event);
-				}
-				else
-				{
-					_delTimer(event);
+					event->onTimeout();
+					if (!event->_invalid)
+					{
+						if (event->_period > 0 && (event->_count > 1 || !event->_count))
+						{
+							if (event->_count)
+								event->_count--;
+							event->_tick += event->_period;
+							_addTimer(event);
+						}
+						else
+						{
+							_delTimer(event);
+						}
+					}
 				}
 			}
 			catch (std::exception e)
@@ -142,10 +149,14 @@ namespace core
 				event->leave();
 				_onTimeout(event);
 			}
+			while (!_invalidEvents.empty())
+			{
+				_delTimer(*_invalidEvents.begin());
+				_invalidEvents.pop_front();
+			}
 		}
 
 	}
-
-
-
 }
+
+

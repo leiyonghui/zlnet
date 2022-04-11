@@ -4,6 +4,9 @@
 
 namespace core
 {
+	using int32 = int;
+	using int64 = long long;
+	using uint64 = unsigned long long;
 	using Tick = uint64;
 
 	typedef std::function<void()> TimeoutCallback;
@@ -11,33 +14,37 @@ namespace core
 	namespace timerwheel {
 		class TimerWheel;
 	};
+	namespace timerset {
+		class TimerSet;
+		class TimerSetImpl;
+	};
 	class IScheduler;
 	class TimerHander;
-	class TimerEvent;
 
-	class TimerEvent : CFastNode<core::TimerEvent*>
+	class TimerEvent : CFastNode<TimerEvent*>
 	{
 		friend class IScheduler;
 		friend class TimerHander;
 		friend class timerwheel::TimerWheel;
+		friend class timerset::TimerSetImpl;
 
 		int64 _id;
 		TimerHander* _hander;
 		Tick _tick;
 		Tick _period;
 		int32 _count;
-		TimeoutCallback _callback;
 		bool _invalid;
+		TimeoutCallback _callback;
 	public:
-		TimerEvent(int64 id, TimerHander* ptr, Tick tick, Tick period, int32 count, TimeoutCallback&& callback) :
+		TimerEvent(int64 id, TimerHander* ptr, Tick tick, Tick period, int32 count, TimeoutCallback&& callback, bool invalid = true) :
 			CFastNode<TimerEvent*>(this),
 			_id(id),
 			_hander(ptr),
 			_tick(tick),
 			_period(period),
 			_count(count),
-			_callback(std::move(callback)),
-			_invalid(true)
+			_invalid(invalid),
+			_callback(std::move(callback))
 		{
 			//assert(_hander);
 		}
@@ -56,10 +63,25 @@ namespace core
 		}
 	};
 
+	class TimerSlot
+	{
+		friend class timerset::TimerSetImpl;
+		friend class timerwheel::TimerWheel;
+
+		CFastNode<TimerEvent*> _slot;
+	public:
+		TimerSlot() : _slot(nullptr)
+		{
+
+		}
+	};
+
 	class TimerHander
 	{
 		friend class TimerEvent;
 		friend class timerwheel::TimerWheel;
+		friend class timerset::TimerSetImpl;
+
 
 		using Duration = std::chrono::milliseconds;
 		using Datetime = std::chrono::system_clock::time_point;
@@ -73,7 +95,7 @@ namespace core
 	public:
 		TimerHander(IScheduler* IScheduler) : _nextId(0), _scheduler(IScheduler) {}
 
-		virtual ~TimerHander()
+		~TimerHander()
 		{
 			cancel();
 		}
@@ -106,6 +128,8 @@ namespace core
 	{
 	public:
 		IScheduler() {}
+
+		virtual ~IScheduler() {}
 
 		virtual Tick tick() = 0;
 

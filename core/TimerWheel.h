@@ -1,25 +1,10 @@
 #pragma once
-#include "FastNode.h"
-#include <functional>
-#include <assert.h>
 #include "Timers.h"
 
 namespace core
 {
 	namespace timerwheel
 	{
-		class TimerSlot
-		{
-			friend class TimerWheel;
-
-			CFastNode<TimerEvent*> _slot;
-		public:
-			TimerSlot() : _slot(nullptr)
-			{
-
-			}
-		};
-
 #define WHEEL_SIZE 256
 #define BIT_SIZE 8
 #define SLOT_SIZE 8
@@ -35,6 +20,7 @@ namespace core
 			uint64 _expend;
 			uint64 _executeCount;
 			TimerSlot _slot[SLOT_SIZE][WHEEL_SIZE];
+			std::list<TimerEvent*> _invalidEvents;
 		public:
 			TimerWheel(Tick interval = 1);
 
@@ -62,5 +48,4 @@ namespace core
 			void _update();
 		};
 	}
-
 }
