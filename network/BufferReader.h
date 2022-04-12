@@ -147,12 +147,30 @@ namespace network
 
         float readFloat()
         {
-            return 0;
+            const float* value = (const float*)_buf->read(_pos, sizeof(float));
+            if (value != NULL)
+            {
+                _pos += (uint32)sizeof(float);
+                return networkToHostfloat(*value);
+            }
+			else
+			{
+				assert(false);
+			}
         }
 
         double readDouble()
         {
-            return 0;
+			const double* value = (const double*)_buf->read(_pos, sizeof(double));
+			if (value != NULL)
+			{
+				_pos += (uint32)sizeof(double);
+				return networkToHostdouble(*value);
+			}
+			else
+			{
+				assert(false);
+			}
         }
 
         uint32 readBytes(char* buf, uint32 size)

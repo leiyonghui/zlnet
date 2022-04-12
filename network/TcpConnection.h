@@ -4,8 +4,7 @@
 namespace network
 {
 	class CTcpConnection : 
-		public CConnection,
-		public std::enable_shared_from_this<CTcpConnection>
+		public CConnection
 	{
 	public:
 		virtual ~CTcpConnection();

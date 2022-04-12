@@ -6,15 +6,20 @@ namespace network
 {
 	CTcpConnector::CTcpConnector(const CAddress& address, CEventDispatcher* eventDispatcher):
 		CEventHandler(EHandler_TcpConnector, nullptr, eventDispatcher),
+		_retryCount(0),
+		_maxRetry(3),
+		_retryId(0),
 		_state(EDisconnected),
-		_address(address)
+		_address(address),
+		_newCallback(nullptr)
 	{
 
 	}
 
 	CTcpConnector::~CTcpConnector()
 	{
-
+		if (_retryId)
+			_eventDispatcher->cancel(_retryId);
 	}
 
 	int32 CTcpConnector::connect()
@@ -22,7 +27,7 @@ namespace network
 		assert(_endPoint == nullptr);
 		SOCKET socket = createSocket(EPROTO_TCP);
 		_endPoint = CObjectPool<CEndPoint>::Instance()->createUnique(socket, _address);
-		bool code = _endPoint->connect();
+		int32 code = _endPoint->connect();
 		switch (code)
 		{
 		case 0:
@@ -61,7 +66,21 @@ namespace network
 
 	int32 CTcpConnector::handleWriteEvent()
 	{
-		
+		assert(_state == EConnecting);
+		assert(_endPoint);
+		_eventDispatcher->deregisterHandler(_endPoint->getSocket());
+		auto err = _endPoint->getSocketError();
+		if (err)
+		{
+			core_log_error("connector handle error", strerror(err));
+			retry();
+		}
+		else
+		{
+			onConnected();
+			return 0;
+		}
+		return -1;
 	}
 
 	void CTcpConnector::connecting()
@@ -74,14 +93,35 @@ namespace network
 
 	void CTcpConnector::onConnected()
 	{
-		//setState(ECONNECT_CON);
-		//CConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(_endPoint);
-		//_netWork->onNewConnection(connection);
+		setState(EConnected);
+		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandler_TcpConnection, std::move(_endPoint));
+		_eventDispatcher->registerInputHandler(connection->getSocket(), connection.get());
+		if (_newCallback)
+		{
+			_newCallback(std::static_pointer_cast<CConnection>(connection));
+		}
+		assert(_endPoint == nullptr);
+	}
+
+	void CTcpConnector::onDisConnect()
+	{
+
 	}
 
 	void CTcpConnector::retry()
 	{
+		assert(_state == EDisconnected);
 		_endPoint.reset();
-
+		_retryCount++;
+		if (_retryCount <= _maxRetry)
+		{
+			_retryId = _eventDispatcher->addTimer(std::chrono::milliseconds(_retryCount * 2000), 0ms, [this]() {
+				connect();
+			});
+		}
+		else
+		{
+			onDisConnect();
+		}
 	}
 }

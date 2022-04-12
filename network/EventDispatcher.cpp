@@ -1,8 +1,10 @@
 #include "EpollerEvent.h"
 #include "EventDispatcher.h"
+#include "EventHandlers.h"
+
 namespace network
 {
-	CEventDispatcher::CEventDispatcher(): _eventPoller(new CEpollerEvent())
+	CEventDispatcher::CEventDispatcher(IScheduler *scheduler):TimerHander(scheduler),_eventPoller(new CEpollerEvent())
 	{
 
 	}

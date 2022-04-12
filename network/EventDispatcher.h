@@ -1,13 +1,13 @@
 #pragma once
 #include "Configs.h"
-#include "EventHandlers.h"
 
 namespace network
 {
-	class CEventDispatcher
+	class CEventHandler;
+	class CEventDispatcher : public TimerHander
 	{
 	public:
-		CEventDispatcher();
+		CEventDispatcher(IScheduler* scheduler);
 
 		virtual ~CEventDispatcher();
 

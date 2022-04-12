@@ -58,6 +58,7 @@ namespace network
 
 		int32 write(char* buff, int32 len);
 
+		int32 getSocketError();
 
 	private:
 		SOCKET _socket;

@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include "Endpoint.h"
-#include "Callbacks.h"
 #include "EventDispatcher.h"
 
 namespace network
@@ -52,7 +51,7 @@ namespace network
 
 		void updateEvent(int32 event) { _event = event; }
 
-		SOCKET getSocket() const { _endpoint->getSocket(); }
+		SOCKET getSocket() const { return _endpoint->getSocket();}
 
 		EHandlerType getType() const { return _type; }
 

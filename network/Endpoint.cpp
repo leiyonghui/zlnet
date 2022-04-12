@@ -157,6 +157,20 @@ namespace network
 		return count;
 	}
 
+	int32 CEndPoint::getSocketError()
+	{
+		int optval;
+		socklen_t optlen = static_cast<socklen_t>(sizeof optval);
+		if (::getsockopt(_socket, SOL_SOCKET, SO_ERROR, &optval, &optlen) < 0)
+		{
+			return errno;
+		}
+		else
+		{
+			return optval;
+		}
+	}
+
 #else // __liunx
 	int32 CEndPoint::setNonblock()
 	{

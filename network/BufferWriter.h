@@ -81,13 +81,13 @@ namespace network
 
         void writeFloat(float value)
         {
-            *(float*)_buf->write(_pos, sizeof(float)) = value;
+            *(float*)_buf->write(_pos, sizeof(float)) = hostToNetworkfloat(value);
             _pos += (uint32)sizeof(float);
         }
 
         void writeDouble(double value)
         {
-            *(double*)_buf->write(_pos, sizeof(double)) = value;
+            *(double*)_buf->write(_pos, sizeof(double)) = hostToNetwrokdouble(value);
             _pos += (uint32)sizeof(double);
         }
 

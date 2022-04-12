@@ -1,6 +1,7 @@
 #pragma once
 #include "Configs.h"
 #include "EventHandlers.h"
+#include "Callbacks.h"
 
 namespace network
 {

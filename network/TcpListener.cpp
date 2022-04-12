@@ -23,11 +23,11 @@ namespace network
 		CEndPointUnPtr endPoint = _endpoint->accept();
 		if (endPoint == nullptr)
 			return -1;
-		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(std::move(endPoint));
+		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandler_TcpConnection, std::move(endPoint));
 		_eventDispatcher->registerInputHandler(endPoint->getSocket(), connection.get());
 		if (_newConnectionCallback)
 		{
-			_newConnectionCallback(connection);
+			_newConnectionCallback(std::static_pointer_cast<CConnection>(connection));
 		}
 		return 0;
 	}

@@ -2,6 +2,8 @@
 #include "Configs.h"
 #include "EventDispatcher.h"
 #include "Callbacks.h"
+#include "Address.h"
+#include "core/TimerSet.h"
 
 namespace network
 {
@@ -36,6 +38,7 @@ namespace network
 		inline void process();
 
 		bool _isStop;
+		timerset::TimerSet* _timerSet;
 		CEventDispatcher* _eventDispatcher;
 		std::map<SOCKET, CConnectionPtr> _connections;
 		std::map<CAddress, class CListener*> _listeners;

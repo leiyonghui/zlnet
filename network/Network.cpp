@@ -10,10 +10,9 @@
 #include <signal.h>
 #endif // __linux
 
-
 namespace network
 {
-	CNetWork::CNetWork():_isStop(true), _eventDispatcher(new CEventDispatcher())
+	CNetWork::CNetWork():_isStop(true), _timerSet(new timerset::TimerSet()),_eventDispatcher(new CEventDispatcher(_timerSet))
 	{
 #ifdef _WIN32
 		WSADATA swaData;
@@ -123,6 +122,7 @@ namespace network
 
 	inline void CNetWork::process()
 	{
+		_timerSet->update(TimeHelp::clock_ms().count());
 		_eventDispatcher->process(4);
 	}
 

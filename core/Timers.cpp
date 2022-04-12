@@ -32,6 +32,16 @@ namespace core
 		return addTimer(chrono::duration_cast<Duration>(datetime - chrono::system_clock::now()), duration, count, std::forward<TimeoutCallback>(callback));
 	}
 
+	int64 TimerHander::addTimer(Duration delay, Duration duration, TimeoutCallback&& callback)
+	{
+		return addTimer(delay, duration, 1, std::forward<TimeoutCallback>(callback));
+	}
+
+	int64 TimerHander::addTimer(Datetime time, Duration duration, TimeoutCallback&& callback)
+	{
+		return addTimer(time, duration, 1, std::forward<TimeoutCallback>(callback));
+	}
+
 	bool TimerHander::cancel(int64 id)
 	{
 		auto iter = _timerMap.find(id);

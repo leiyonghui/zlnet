@@ -25,7 +25,7 @@ namespace network
 		{
 			const epoll_event& event = _events[i];
 			CEventHandler* handler = (CEventHandler*)event.data.ptr;
-			const uint16& ev = event.events;
+			const uint32& ev = event.events;
 			int32 events = handler->getEvent();
 			if (ev & (EPOLLERR | EPOLLHUP) && !(ev & EPOLLIN))
 			{

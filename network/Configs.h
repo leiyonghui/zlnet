@@ -4,6 +4,7 @@
 #include "core/NonCopyable.h"
 #include "core/ObjectPools.h"
 #include "core/Common.h"
+#include "core/Timers.h"
 
 #ifdef _WIN32
 #include <winsock2.h>

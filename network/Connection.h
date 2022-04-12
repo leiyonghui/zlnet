@@ -2,6 +2,7 @@
 #include "Configs.h"
 #include "EventHandlers.h"
 #include "Endpoint.h"
+#include "Callbacks.h"
 
 namespace network
 {
@@ -16,7 +17,8 @@ namespace network
 	class CConnection :
 		public CEventHandler,
 		public CPoolObject,
-		public CNoncopyable
+		public CNoncopyable,
+		public std::enable_shared_from_this<CConnection>
 	{
 	public:
 		CConnection() :_state(EDisconnected) {};
