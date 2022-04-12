@@ -28,10 +28,10 @@ namespace core
 		static void showInfo()
 		{
 			auto& objectPoolMap = getObjectPool();
-			core_log_info("ObjectPoolInfo start:", TimeHelp::TimeToString(TimeHelp::now()));
+			core_log_trace("ObjectPoolInfo start:", TimeHelp::TimeToString(TimeHelp::now()));
 			for (const auto& iter : objectPoolMap)
 				iter.second();
-			core_log_info("ObjectPoolInfo end.");
+			core_log_trace("ObjectPoolInfo end.");
 		}
 	};
 

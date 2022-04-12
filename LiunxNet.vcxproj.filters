@@ -129,6 +129,9 @@
     <ClInclude Include="core\TimerSet.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="network\MsgContext.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">

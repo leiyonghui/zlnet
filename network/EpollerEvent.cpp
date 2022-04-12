@@ -7,6 +7,28 @@
 
 namespace network
 {
+	void printfEvent(int32 fd, int32 ev)
+	{
+		std::ostringstream oss;
+		oss << "fd:" << fd << " ";
+		if (ev & EPOLLIN)
+			oss << "IN ";
+		if (ev & EPOLLPRI)
+			oss << "PRI ";
+		if (ev & EPOLLOUT)
+			oss << "OUT ";
+		if (ev & EPOLLHUP)
+			oss << "HUP ";
+		if (ev & EPOLLRDHUP)
+			oss << "RDHUP ";
+		if (ev & EPOLLERR)
+			oss << "ERR ";
+		//if (ev & EPOLLNVAL)
+		//	oss << "NVAL ";
+		std::string str = oss.str();
+		printf("%s\n", str.c_str());
+	}
+
 	CEpollerEvent::CEpollerEvent() :_epfd(epoll_create(EPOLL_EIZE)), _events(new epoll_event[EPOLL_EIZE])
 	{
 
@@ -27,10 +49,10 @@ namespace network
 			CEventHandler* handler = (CEventHandler*)event.data.ptr;
 			const uint32& ev = event.events;
 			int32 events = handler->getEvent();
+			printfEvent(handler->getSocket(), ev);
 			if (ev & (EPOLLERR | EPOLLHUP) && !(ev & EPOLLIN))
 			{
-				if (events & ev)
-					handler->handleErrorEvent(ev);
+				handler->handleErrorEvent(ev);
 			}
 			else
 			{

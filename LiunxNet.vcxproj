@@ -106,6 +106,7 @@
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
     <ClInclude Include="network\Connection.h" />
+    <ClInclude Include="network\MsgContext.h" />
     <ClInclude Include="network\TcpConnector.h" />
     <ClInclude Include="network\Endpoint.h" />
     <ClInclude Include="network\EpollerEvent.h" />

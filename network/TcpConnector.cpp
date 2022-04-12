@@ -24,10 +24,10 @@ namespace network
 
 	int32 CTcpConnector::connect()
 	{
-		assert(_endPoint == nullptr);
+		assert(_endpoint == nullptr);
 		SOCKET socket = createSocket(EPROTO_TCP);
-		_endPoint = CObjectPool<CEndPoint>::Instance()->createUnique(socket, _address);
-		int32 code = _endPoint->connect();
+		_endpoint = CObjectPool<CEndPoint>::Instance()->createUnique(socket, _address);
+		int32 code = _endpoint->connect();
 		switch (code)
 		{
 		case 0:
@@ -53,12 +53,12 @@ namespace network
 		case EFAULT:
 		case ENOTSOCK:
 			core_log_error("connect error");
-			_endPoint.reset();
+			_endpoint.reset();
 			return -1;
 
 		default:
 			core_log_error("connect Unexpected error");
-			_endPoint.reset();
+			_endpoint.reset();
 			return -1;
 		}
 		return 0;
@@ -67,9 +67,9 @@ namespace network
 	int32 CTcpConnector::handleWriteEvent()
 	{
 		assert(_state == EConnecting);
-		assert(_endPoint);
-		_eventDispatcher->deregisterHandler(_endPoint->getSocket());
-		auto err = _endPoint->getSocketError();
+		assert(_endpoint);
+		_eventDispatcher->deregisterHandler(_endpoint->getSocket());
+		auto err = _endpoint->getSocketError();
 		if (err)
 		{
 			core_log_error("connector handle error", strerror(err));
@@ -85,22 +85,23 @@ namespace network
 
 	void CTcpConnector::connecting()
 	{
-		assert(_endPoint);
+		assert(_endpoint);
 		setState(EConnecting);
-		_eventDispatcher->deregisterHandler(_endPoint->getSocket());
-		_eventDispatcher->registerWriteHandler(_endPoint->getSocket(), this);
+		_eventDispatcher->deregisterHandler(_endpoint->getSocket());
+		_eventDispatcher->registerWriteHandler(_endpoint->getSocket(), this);
 	}
 
 	void CTcpConnector::onConnected()
 	{
 		setState(EConnected);
-		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandler_TcpConnection, std::move(_endPoint));
+		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandler_TcpConnection, std::move(_endpoint));
+		connection->setEventDispatcher(_eventDispatcher);
 		_eventDispatcher->registerInputHandler(connection->getSocket(), connection.get());
 		if (_newCallback)
 		{
 			_newCallback(std::static_pointer_cast<CConnection>(connection));
 		}
-		assert(_endPoint == nullptr);
+		assert(_endpoint == nullptr);
 	}
 
 	void CTcpConnector::onDisConnect()
@@ -111,7 +112,7 @@ namespace network
 	void CTcpConnector::retry()
 	{
 		assert(_state == EDisconnected);
-		_endPoint.reset();
+		_endpoint.reset();
 		_retryCount++;
 		if (_retryCount <= _maxRetry)
 		{

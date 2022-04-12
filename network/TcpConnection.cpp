@@ -10,6 +10,9 @@
 
 namespace network
 {
+	CTcpConnection::CTcpConnection():CConnection(),_inputBuff(new CRingBuff(1024)),_outBuff(new CRingBuff(1024))
+	{
+	}
 	CTcpConnection::~CTcpConnection()
 	{
 		delete _inputBuff;
@@ -36,6 +39,19 @@ namespace network
 	int32 CTcpConnection::handleWriteEvent()
 	{
 		return handleWrite();
+	}
+
+	int32 CTcpConnection::handleErrorEvent(int32 ev)
+	{
+		handleError();
+		return 0;
+	}
+
+	void CTcpConnection::destroyed()
+	{
+		setState(EDisconnected);
+		_eventDispatcher->deregisterHandler(getSocket());
+		core_log_debug("destroyed", getSocket());
 	}
 
 #ifdef __linux
@@ -98,14 +114,14 @@ namespace network
 		setState(EDisconnecting);
 		if (_closeCallback)
 		{
-			_closeCallback(SHARED_THIS(CConnection));
+			_closeCallback(/*SHARED_THIS(CConnection)*/shared_from_this());
 		}
 	}
 
 	void CTcpConnection::handleError()
 	{
 		core_log_error("handleError", _endpoint->getSocket());
-		//handleClose();
+		handleClose();
 	}
 #else // __liunx
 

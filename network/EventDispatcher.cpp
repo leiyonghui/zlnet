@@ -26,7 +26,7 @@ namespace network
 
 	void CEventDispatcher::registerWriteHandler(SOCKET socket, CEventHandler* handler)
 	{
-		_eventPoller->registerHandler(socket, handler);
+		_eventPoller->registerWriteHandler(socket, handler);
 	}
 
 	void CEventDispatcher::deregisterWriteHandler(SOCKET socket, CEventHandler* handler)

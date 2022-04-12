@@ -22,6 +22,7 @@ namespace network
 		void setMaxRetry(int32 maxRetry) { _maxRetry = maxRetry; };
 
 		void setNewCallback(onNewConnectionCallback&& callback) { _newCallback = std::move(callback); }
+
 	protected:
 		void setState(EConnectionState state) { _state = state; }
 
@@ -38,7 +39,6 @@ namespace network
 		int64 _retryId;
 		EConnectionState _state;
 		CAddress _address;
-		CEndPointUnPtr _endPoint;
 		onNewConnectionCallback _newCallback;
 	};
 }

@@ -3,7 +3,7 @@
 #include "EventDispatcher.h"
 #include "Callbacks.h"
 #include "Address.h"
-#include "core/TimerSet.h"
+#include "MsgContext.h"
 
 namespace network
 {
@@ -32,16 +32,27 @@ namespace network
 
 		void removeConnection(SOCKET socket);
 
+		void onTimer1000ms();
+
+		void pushMsg(CMsgBase* msg);
+
 	private:
 		void initSignal();
 
 		inline void process();
+
+		inline void processmsg();
+
+		inline void handlemsg(CMsgBase* msg);
 
 		bool _isStop;
 		timerset::TimerSet* _timerSet;
 		CEventDispatcher* _eventDispatcher;
 		std::map<SOCKET, CConnectionPtr> _connections;
 		std::map<CAddress, class CListener*> _listeners;
-		//std::map<CAddress, class CConnector*> _connectors;
+		std::map<CAddress, class CTcpConnector*> _tcpConnectors;
+		std::list<CMsgBase*> _msgqueue;
+
+		int64 _lastclock;
 	};
 }

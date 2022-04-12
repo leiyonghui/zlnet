@@ -21,7 +21,7 @@ namespace network
 		public std::enable_shared_from_this<CConnection>
 	{
 	public:
-		CConnection() :_state(EDisconnected) {};
+		CConnection() : CEventHandler(), _state(EDisconnected) {};
 
 		virtual ~CConnection();
 
@@ -36,6 +36,8 @@ namespace network
 		void setInputCallback(onConnectionInputCallback&& callback) { _inputCallback = std::move(callback); }
 
 		void setCloseCallback(onConnectionCloseCallback&& callback) { _closeCallback = std::move(callback); };
+
+		virtual void destroyed() = 0;
 
 	protected:
 		EConnectionState _state;
