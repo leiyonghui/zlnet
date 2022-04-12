@@ -113,7 +113,7 @@ namespace network
 			&optval, static_cast<socklen_t>(sizeof optval));
 	}
 
-	CEndPointPtr CEndPoint::accept()
+	CEndPointUnPtr CEndPoint::accept()
 	{
 		sockaddr_in addr;
 		socklen_t addrlen = static_cast<socklen_t>(sizeof(addr));
@@ -123,7 +123,7 @@ namespace network
 			core_log_error("SocketOpt::accpet", errno, strerror(errno));
 			return nullptr;
 		}
-		CEndPointPtr newEndPoint = CObjectPool<CEndPoint>::Instance()->create(fd, CAddress(addr));
+		CEndPointUnPtr newEndPoint = CObjectPool<CEndPoint>::Instance()->createUnique(fd, CAddress(addr));
 		return newEndPoint;
 	}
 
@@ -155,6 +155,20 @@ namespace network
 			core_log_warning("SocketOpt::write", errno, strerror(errno));
 		}
 		return count;
+	}
+
+	int32 CEndPoint::getSocketError()
+	{
+		int optval;
+		socklen_t optlen = static_cast<socklen_t>(sizeof optval);
+		if (::getsockopt(_socket, SOL_SOCKET, SO_ERROR, &optval, &optlen) < 0)
+		{
+			return errno;
+		}
+		else
+		{
+			return optval;
+		}
 	}
 
 #else // __liunx

@@ -1,14 +1,16 @@
 #include "ServerApp.h"
-#include "core/TimerWheel.h"
 
 namespace app
 {
 	using namespace core::timerwheel;
-	TimerWheel CServerApp::TimerScheduler(1);
+
+	//const core::timerwheel::TimerWheel WorldScheduler(1);
+
+	const typename CServerApp::TimerWheel CServerApp::WorldScheduler(1);
 
 	CServerApp::CServerApp() :
-		_network(new network::CNetWork()),
-		TimerHander(&TimerScheduler)
+		TimerHander(const_cast<TimerWheel*>(&WorldScheduler)),
+		_network(new network::CNetWork())
 	{
 
 	}

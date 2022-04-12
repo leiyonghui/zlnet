@@ -28,7 +28,7 @@ namespace network
 
 	protected:
 
-		void updateHandler(SOCKET socket, CEventHandler* handler, uint32 ev);
+		void updateHandler(SOCKET socket, CEventHandler* handler, int32 events);
 
 		int32 _epfd;
 		struct epoll_event* _events;

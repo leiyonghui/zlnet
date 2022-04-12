@@ -5,6 +5,7 @@
 namespace network
 {
 	typedef std::shared_ptr<class CEndPoint> CEndPointPtr;
+	typedef std::unique_ptr<class CEndPoint, std::function<void(CEndPoint*)>> CEndPointUnPtr;
 	class CEndPoint : public CNoncopyable , public CPoolObject
 	{
 	public:
@@ -47,7 +48,7 @@ namespace network
 
 		int32 connect();
 
-		CEndPointPtr accept();
+		CEndPointUnPtr accept();
 
 		int32 read(char* buff, int32 len);
 
@@ -57,6 +58,7 @@ namespace network
 
 		int32 write(char* buff, int32 len);
 
+		int32 getSocketError();
 
 	private:
 		SOCKET _socket;

@@ -67,4 +67,6 @@ namespace core
 	}
 	using namespace logs;
 
+#define SHARED_THIS(CLASS) std::static_pointer_cast<CLASS>(shared_from_this())
+
 }

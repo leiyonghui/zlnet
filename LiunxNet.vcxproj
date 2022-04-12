@@ -95,18 +95,25 @@
     <ClInclude Include="core\Singleton.h" />
     <ClInclude Include="core\TimeHelp.h" />
     <ClInclude Include="core\Timers.h" />
+    <ClInclude Include="core\TimerSet.h" />
     <ClInclude Include="core\TimerWheel.h" />
     <ClInclude Include="network\Address.h" />
+    <ClInclude Include="network\Buffer.h" />
+    <ClInclude Include="network\BufferReader.h" />
+    <ClInclude Include="network\BufferWriter.h" />
+    <ClInclude Include="network\Buffs.h" />
     <ClInclude Include="network\Callbacks.h" />
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
     <ClInclude Include="network\Connection.h" />
-    <ClInclude Include="network\Connector.h" />
+    <ClInclude Include="network\MsgContext.h" />
+    <ClInclude Include="network\TcpConnector.h" />
     <ClInclude Include="network\Endpoint.h" />
     <ClInclude Include="network\EpollerEvent.h" />
     <ClInclude Include="network\EventDispatcher.h" />
     <ClInclude Include="network\EventHandlers.h" />
     <ClInclude Include="network\EventPoller.h" />
+    <ClInclude Include="network\IBuffer.h" />
     <ClInclude Include="network\Network.h" />
     <ClInclude Include="network\Listener.h" />
     <ClInclude Include="network\RingBuff.h" />
@@ -118,10 +125,11 @@
     <ClCompile Include="core\ObjectPools.cpp" />
     <ClCompile Include="core\TimeHelp.cpp" />
     <ClCompile Include="core\Timers.cpp" />
+    <ClCompile Include="core\TimerSet.cpp" />
     <ClCompile Include="core\TimerWheel.cpp" />
     <ClCompile Include="network\Address.cpp" />
     <ClCompile Include="network\Connection.cpp" />
-    <ClCompile Include="network\Connector.cpp" />
+    <ClCompile Include="network\TcpConnector.cpp" />
     <ClCompile Include="network\Endpoint.cpp" />
     <ClCompile Include="network\EpollerEvent.cpp" />
     <ClCompile Include="network\EventDispatcher.cpp" />
@@ -137,6 +145,42 @@
     <ClCompile>
       <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__linux;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

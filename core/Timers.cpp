@@ -1,11 +1,11 @@
 #include "Timers.h"
 #include "TimeHelp.h"
 
-using namespace std;
-using namespace chrono;
-
 namespace core
 {
+	using namespace std;
+	using namespace chrono;
+
 	TimerEvent::~TimerEvent()
 	{
 		if (_hander)
@@ -24,12 +24,22 @@ namespace core
 
 	int64 TimerHander::addTimer(Duration delay, Duration duration, int32 count, TimeoutCallback&& callback)
 	{
-		return addTimer(_scheduler->tick() + delay.count(), duration.count(), count, std::forward<TimeoutCallback>(callback));
+		return addTimer(TimeHelp::clock_ms().count() + delay.count(), duration.count(), count, std::forward<TimeoutCallback>(callback));
 	}
 
 	int64 TimerHander::addTimer(Datetime datetime, Duration duration, int32 count, TimeoutCallback&& callback)
 	{
 		return addTimer(chrono::duration_cast<Duration>(datetime - chrono::system_clock::now()), duration, count, std::forward<TimeoutCallback>(callback));
+	}
+
+	int64 TimerHander::addTimer(Duration delay, Duration duration, TimeoutCallback&& callback)
+	{
+		return addTimer(delay, duration, 1, std::forward<TimeoutCallback>(callback));
+	}
+
+	int64 TimerHander::addTimer(Datetime time, Duration duration, TimeoutCallback&& callback)
+	{
+		return addTimer(time, duration, 1, std::forward<TimeoutCallback>(callback));
 	}
 
 	bool TimerHander::cancel(int64 id)
@@ -55,4 +65,5 @@ namespace core
 		}
 		_timerMap.clear();
 	}
+
 }

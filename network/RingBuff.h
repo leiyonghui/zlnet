@@ -1,9 +1,18 @@
 #pragma once
 #include "Configs.h"
-#include "Buffs.h"
 
 namespace network
 {
+    struct SWritev
+    {
+        char* buff;
+        int len;
+
+        SWritev() :buff(nullptr), len(0) {}
+
+        void clear() { buff = nullptr, len = 0; }
+    };
+
     class CRingBuff
     {
         using uint32 = unsigned int;
@@ -34,6 +43,8 @@ namespace network
         uint32 size() { return _size; }
 
         uint32 capacity() { return _capacity; }
+
+        void clear();
 
     private:
         void ensure(uint32 capacity);

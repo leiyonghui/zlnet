@@ -96,7 +96,7 @@
     <ClInclude Include="network\TcpConnection.h">
       <Filter>network</Filter>
     </ClInclude>
-    <ClInclude Include="network\Connector.h">
+    <ClInclude Include="network\TcpConnector.h">
       <Filter>network</Filter>
     </ClInclude>
     <ClInclude Include="core\Timers.h">
@@ -109,6 +109,27 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="network\RingBuff.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Buffs.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Buffer.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\BufferReader.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\BufferWriter.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\IBuffer.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TimerSet.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="network\MsgContext.h">
       <Filter>network</Filter>
     </ClInclude>
   </ItemGroup>
@@ -149,7 +170,7 @@
     <ClCompile Include="network\TcpConnection.cpp">
       <Filter>network</Filter>
     </ClCompile>
-    <ClCompile Include="network\Connector.cpp">
+    <ClCompile Include="network\TcpConnector.cpp">
       <Filter>network</Filter>
     </ClCompile>
     <ClCompile Include="app\ServerApp.cpp">
@@ -166,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="network\RingBuff.cpp">
       <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TimerSet.cpp">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

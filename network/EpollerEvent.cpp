@@ -7,6 +7,28 @@
 
 namespace network
 {
+	void printfEvent(int32 fd, int32 ev)
+	{
+		std::ostringstream oss;
+		oss << "fd:" << fd << " ";
+		if (ev & EPOLLIN)
+			oss << "IN ";
+		if (ev & EPOLLPRI)
+			oss << "PRI ";
+		if (ev & EPOLLOUT)
+			oss << "OUT ";
+		if (ev & EPOLLHUP)
+			oss << "HUP ";
+		if (ev & EPOLLRDHUP)
+			oss << "RDHUP ";
+		if (ev & EPOLLERR)
+			oss << "ERR ";
+		//if (ev & EPOLLNVAL)
+		//	oss << "NVAL ";
+		std::string str = oss.str();
+		printf("%s\n", str.c_str());
+	}
+
 	CEpollerEvent::CEpollerEvent() :_epfd(epoll_create(EPOLL_EIZE)), _events(new epoll_event[EPOLL_EIZE])
 	{
 
@@ -24,36 +46,25 @@ namespace network
 		for (int32 i = 0; i < cnt; i++)
 		{
 			const epoll_event& event = _events[i];
-			//CEventHandler* handler = (CEventHandler*)event.data.ptr;
-			SOCKET socket = event.data.u32;
-			auto iter = _handlers.find(socket);
-			if (iter == _handlers.end())
-			{
-				assert(false);
-				continue;
-			}
-			const uint16& ev = event.events;
+			CEventHandler* handler = (CEventHandler*)event.data.ptr;
+			const uint32& ev = event.events;
+			int32 events = handler->getEvent();
+			printfEvent(handler->getSocket(), ev);
 			if (ev & (EPOLLERR | EPOLLHUP) && !(ev & EPOLLIN))
 			{
-				iter->second->handleErrorEvent(ev);
+				handler->handleErrorEvent(ev);
 			}
 			else
 			{
 				if (ev & EPOLLIN)
 				{
-					iter->second->handleInputEvent();
+					if (events & ev)
+						handler->handleInputEvent();
 				}
 				if (ev & EPOLLOUT)
 				{
-					iter = _handlers.find(socket);
-					if (iter != _handlers.end())
-					{
-						iter->second->handleWriteEvent();
-					}
-					else
-					{
-						core_log_warning("epoll null handler", socket);
-					}
+					if (events & ev)
+						handler->handleWriteEvent();
 				}
 			}			
 		}
@@ -93,14 +104,12 @@ namespace network
 		CEventPoller::deregisterHandler(socket);
 	}
 
-	void CEpollerEvent::updateHandler(SOCKET socket, CEventHandler* handler, uint32 ev)
+	void CEpollerEvent::updateHandler(SOCKET socket, CEventHandler* handler, int32 events)
 	{
-		handler->updateEvent(ev);
 		epoll_event event;
-		event.events = ev;
-		event.data.u32 = socket;
-		auto iter = _handlers.find(socket);
-		if (iter != _handlers.end())
+		event.events = events;
+		event.data.ptr = handler;
+		if (hasHandler(handler))
 		{
 			if (::epoll_ctl(_epfd, EPOLL_CTL_MOD, socket, &event))
 			{
@@ -112,14 +121,14 @@ namespace network
 		{
 			if (::epoll_ctl(_epfd, EPOLL_CTL_ADD, socket, &event) < 0)
 			{
-				core_log_error("epoll mod error", errno);
+				core_log_error("epoll add error", errno);
 				return;
 			}
 			registerHandler(socket, handler);
 		}
+		handler->updateEvent(events);
 	}
 }
-
 
 #endif // __linux
 

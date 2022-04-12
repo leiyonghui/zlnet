@@ -6,6 +6,7 @@
 #include <string>
 #include <map>
 
+using namespace std::literals::chrono_literals;
 namespace core
 {
 	class TimeHelp

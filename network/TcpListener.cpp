@@ -3,8 +3,8 @@
 
 namespace network
 {
-	CTcpListener::CTcpListener(CEndPointPtr endPoint, CNetWork* network):
-		CListener(endPoint, network)
+	CTcpListener::CTcpListener(CEndPointUnPtr&& endPoint, CEventDispatcher* eventDispatcher) :
+		CListener(EHandler_TcpListener, std::forward<CEndPointUnPtr>(endPoint), eventDispatcher)
 	{
 
 	}
@@ -15,29 +15,26 @@ namespace network
 			return false;
 		if (_endpoint->bind())
 			return false;
-		return _endpoint->listen() == 0;
+		if (!_endpoint->listen())
+		{
+			_eventDispatcher->registerInputHandler(_endpoint->getSocket(), this);
+			return true;
+		}
+		return false;
 	}
 
 	int32 CTcpListener::handleInputEvent()
 	{
-		CEndPointPtr endPoint = _endpoint->accept();
+		CEndPointUnPtr endPoint = _endpoint->accept();
 		if (endPoint == nullptr)
 			return -1;
-		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(endPoint);
-		if (_network)
+		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandler_TcpConnection, std::move(endPoint));
+		connection->setEventDispatcher(_eventDispatcher);
+		_eventDispatcher->registerInputHandler(connection->getSocket(), connection.get());
+		if (_newConnectionCallback)
 		{
-			_network->onNewConnection(connection);
+			_newConnectionCallback(/*std::static_pointer_cast<CConnection>(connection)*/connection);
 		}
 		return 0;
-	}
-
-	int32 CTcpListener::handleWriteEvent()
-	{
-		return int32(0);
-	}
-
-	int32 CTcpListener::handleErrorEvent(uint32 ev)
-	{
-		return int32(0);
 	}
 }
