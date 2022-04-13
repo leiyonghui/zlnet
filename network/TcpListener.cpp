@@ -37,4 +37,13 @@ namespace network
 		}
 		return 0;
 	}
+
+	int32 CTcpListener::handleErrorEvent(int32 ev)
+	{
+		if (_disListenCallback)
+		{
+			_disListenCallback(_endpoint->getAddress());
+		}
+		return 0;
+	}
 }

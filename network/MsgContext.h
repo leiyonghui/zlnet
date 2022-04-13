@@ -6,8 +6,11 @@ namespace network
 {
 	enum EMsgType
 	{
-		EMsgCloseCon = 1,
-	};
+		EMsgCloseCon		=	1,	//关闭连接
+		EMsgTimeOutCon		=	2,	//连接超时
+		EMsgInputMessage	=	3,	//接收
+		EMsgOutMessage		=	4,	//发送
+ 	};
 
 	class CMsgBase
 	{

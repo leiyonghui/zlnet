@@ -7,9 +7,4 @@ namespace network
 	{
 		_endpoint->setReuseAddr(true);
 	}
-
-	CListener::~CListener()
-	{
-
-	}
 }

@@ -52,6 +52,8 @@ namespace network
 
 		int32 read(char* buff, int32 len);
 
+		int32 shutdownWrite();
+
 #ifdef __linux
 		int32 readv(const struct iovec* iov, int32 iovcnt);
 #endif // __linux

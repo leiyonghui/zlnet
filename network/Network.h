@@ -11,39 +11,31 @@ namespace network
 	{
 	public:
 		CNetWork();
-
-		~CNetWork();
-
-		void init();
+		virtual ~CNetWork();
 
 		void start();
-
 		void createTcpListener(const CAddress& address);
-
 		void createTcpConnector(const CAddress& address);
-
+		void closeCon();
+		void send(CConnectionPtr con);
+	protected:
 		void onNewConnection(CConnectionPtr connection);
-
 		void onCloseConnection(CConnectionPtr connection);
-
 		void onInputConnection(CConnectionPtr connection, CRingBuff* ringBuff);
+		void onTimeOutConnect(CAddress address);
 
 		void removeConnector(const CAddress& address);
-
 		void removeConnection(SOCKET socket);
-
-		void onTimer1000ms();
-
 		void pushMsg(CMsgBase* msg);
-
-	private:
+	protected:
+		void init();
 		void initSignal();
-
 		inline void process();
-
 		inline void processmsg();
-
 		inline void handlemsg(CMsgBase* msg);
+
+		void onTimer10ms();
+		void onTimer1000ms();
 
 		bool _isStop;
 		timerset::TimerSet* _timerSet;

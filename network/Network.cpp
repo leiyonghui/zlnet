@@ -38,11 +38,6 @@ namespace network
 			delete iter.second;
 	}
 
-	void CNetWork::init()
-	{
-		initSignal();
-	}
-
 	void CNetWork::start()
 	{
 		init();
@@ -91,6 +86,10 @@ namespace network
 		connector->connect();
 	}
 
+	void CNetWork::closeCon()
+	{
+	}
+
 	void CNetWork::onNewConnection(CConnectionPtr con)
 	{
 		core_log_debug("new connection", con->getSocket());
@@ -117,6 +116,11 @@ namespace network
 
 	}
 
+	void CNetWork::onTimeOutConnect(CAddress address)
+	{
+
+	}
+
 	void CNetWork::removeConnector(const CAddress& address)
 	{
 		/*CConnector* connector = nullptr;
@@ -138,19 +142,18 @@ namespace network
 		core_log_debug("ptr count:", connection.unique(), connection.use_count());
 	}
 
-	void CNetWork::onTimer1000ms()
-	{
-		static int32 count = 0;
-		count++;
-		if (count % 20 == 0)
-		{
-			CObjectPoolMonitor::showInfo();
-		}
-	}
-
 	void CNetWork::pushMsg(CMsgBase* msg)
 	{
 		_msgqueue.push_back(msg);
+	}
+
+	void CNetWork::send(CConnectionPtr con)
+	{
+	}
+
+	void CNetWork::init()
+	{
+		initSignal();
 	}
 
 	void CNetWork::initSignal()
@@ -202,6 +205,20 @@ namespace network
 		}
 		default:
 			break;
+		}
+	}
+
+	void CNetWork::onTimer10ms()
+	{
+	}
+
+	void CNetWork::onTimer1000ms()
+	{
+		static int32 count = 0;
+		count++;
+		if (count % 20 == 0)
+		{
+			CObjectPoolMonitor::showInfo();
 		}
 	}
 

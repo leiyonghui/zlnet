@@ -7,10 +7,6 @@ namespace network
     CConnection::CConnection(EHandlerType type) : CEventHandler(type), _state(EDisconnected)
     {
     }
-    CConnection::~CConnection()
-	{
-
-	}
 
 	void CConnection::onAwake(EHandlerType type, CEndPointUnPtr&& endPoint)
 	{
@@ -20,9 +16,8 @@ namespace network
 
 	void CConnection::onRecycle()
 	{
-		_type = EHandlerNone;
+		assert(_state == EDisconnected);
 		_event = 0;
 		_endpoint.reset();
-		assert(_state == EDisconnected);
 	}
 }
