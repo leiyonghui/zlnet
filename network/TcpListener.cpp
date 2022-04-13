@@ -4,7 +4,7 @@
 namespace network
 {
 	CTcpListener::CTcpListener(CEndPointUnPtr&& endPoint, CEventDispatcher* eventDispatcher) :
-		CListener(EHandler_TcpListener, std::forward<CEndPointUnPtr>(endPoint), eventDispatcher)
+		CListener(EHandlerTcpListener, std::forward<CEndPointUnPtr>(endPoint), eventDispatcher)
 	{
 
 	}
@@ -28,12 +28,12 @@ namespace network
 		CEndPointUnPtr endPoint = _endpoint->accept();
 		if (endPoint == nullptr)
 			return -1;
-		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandler_TcpConnection, std::move(endPoint));
+		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandlerTcpConnection, std::move(endPoint));
 		connection->setEventDispatcher(_eventDispatcher);
 		_eventDispatcher->registerInputHandler(connection->getSocket(), connection.get());
 		if (_newConnectionCallback)
 		{
-			_newConnectionCallback(/*std::static_pointer_cast<CConnection>(connection)*/connection);
+			_newConnectionCallback(std::static_pointer_cast<CConnection>(connection));
 		}
 		return 0;
 	}

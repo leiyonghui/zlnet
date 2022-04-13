@@ -5,7 +5,7 @@
 namespace network
 {
 	CTcpConnector::CTcpConnector(const CAddress& address, CEventDispatcher* eventDispatcher):
-		CEventHandler(EHandler_TcpConnector, nullptr, eventDispatcher),
+		CEventHandler(EHandlerTcpConnector, nullptr, eventDispatcher),
 		_retryCount(0),
 		_maxRetry(3),
 		_retryId(0),
@@ -94,7 +94,7 @@ namespace network
 	void CTcpConnector::onConnected()
 	{
 		setState(EConnected);
-		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandler_TcpConnection, std::move(_endpoint));
+		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandlerTcpConnection, std::move(_endpoint));
 		connection->setEventDispatcher(_eventDispatcher);
 		_eventDispatcher->registerInputHandler(connection->getSocket(), connection.get());
 		if (_newCallback)

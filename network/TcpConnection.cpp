@@ -10,7 +10,7 @@
 
 namespace network
 {
-	CTcpConnection::CTcpConnection():CConnection(),_inputBuff(new CRingBuff(1024)),_outBuff(new CRingBuff(1024))
+	CTcpConnection::CTcpConnection():CConnection(EHandlerTcpConnection),_inputBuff(new CRingBuff(1024)),_outBuff(new CRingBuff(1024))
 	{
 	}
 	CTcpConnection::~CTcpConnection()

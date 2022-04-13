@@ -7,16 +7,16 @@ namespace network
 {
 	enum EHandlerType
 	{
-		EHandler_None			=	0,
-		EHandler_TcpListener	=	1,
-		EHandler_TcpConnection	=	2,
-		EHandler_TcpConnector	=	3,
+		EHandlerNone			=   0,
+		EHandlerTcpListener		=	1,
+		EHandlerTcpConnection	=	2,
+		EHandlerTcpConnector	=	3,
 	};
 
 	class CEventHandler
 	{
 	public:
-		CEventHandler() : _type(EHandler_None), _event(0), _eventDispatcher(nullptr){};
+		CEventHandler(EHandlerType type) : _type(type), _event(0), _eventDispatcher(nullptr){};
 
 		CEventHandler(EHandlerType type, CEndPointUnPtr&& endpoint, CEventDispatcher* eventDispatcher) :
 			_type(type),

@@ -21,7 +21,7 @@ namespace network
 		public std::enable_shared_from_this<CConnection>
 	{
 	public:
-		CConnection() : CEventHandler(), _state(EDisconnected) {};
+		CConnection(EHandlerType type);
 
 		virtual ~CConnection();
 
