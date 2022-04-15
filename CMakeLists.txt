@@ -22,6 +22,7 @@ endif()
 #set(CMAKE_CXX_FLAGS_RELEASE -g -std=c++17)
 set(CMAKE_CXX_STANDARD 17)
 include_directories(${PROJECT_SOURCE_DIR})
+include_directories(./core/)
 
 #message(status "project sdir: .....${PROJECT_SOURCE_DIR}")
 #message(status "LIBRARY_OUTPUT_PATH: .....${LIBRARY_OUTPUT_PATH}")
