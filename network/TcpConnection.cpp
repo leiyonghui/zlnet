@@ -1,5 +1,5 @@
+#include "core/RingBuff.h"
 #include "TcpConnection.h"
-#include "RingBuff.h"
 #include "Network.h"
 
 #ifdef __linux

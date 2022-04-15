@@ -3,7 +3,6 @@
 #include "EventDispatcher.h"
 #include "Callbacks.h"
 #include "Address.h"
-#include "MsgContext.h"
 
 namespace network
 {
@@ -26,13 +25,13 @@ namespace network
 
 		void removeConnector(const CAddress& address);
 		void removeConnection(SOCKET socket);
-		void pushMsg(CMsgBase* msg);
+		//void pushMsg(CMsgBase* msg);
 	protected:
 		void init();
 		void initSignal();
 		inline void process();
 		inline void processmsg();
-		inline void handlemsg(CMsgBase* msg);
+		//inline void handlemsg(CMsgBase* msg);
 
 		void onTimer10ms();
 		void onTimer1000ms();
@@ -43,7 +42,7 @@ namespace network
 		std::map<SOCKET, CConnectionPtr> _connections;
 		std::map<CAddress, class CListener*> _listeners;
 		std::map<CAddress, class CTcpConnector*> _tcpConnectors;
-		std::list<CMsgBase*> _msgqueue;
+		//std::list<CMsgBase*> _msgqueue;
 
 		int64 _lastclock;
 	};

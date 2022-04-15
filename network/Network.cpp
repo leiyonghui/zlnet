@@ -107,7 +107,7 @@ namespace network
 	{
 		core_log_debug("close connection", connection->getSocket());
 		//auto socket = connection->getSocket();
-		pushMsg(new CCloseMsg(connection));
+		//pushMsg(new CCloseMsg(connection));
 		//to do
 	}
 
@@ -142,10 +142,10 @@ namespace network
 		core_log_debug("ptr count:", connection.unique(), connection.use_count());
 	}
 
-	void CNetWork::pushMsg(CMsgBase* msg)
+	/*void CNetWork::pushMsg(CMsgBase* msg)
 	{
 		_msgqueue.push_back(msg);
-	}
+	}*/
 
 	void CNetWork::send(CConnectionPtr con)
 	{
@@ -178,7 +178,7 @@ namespace network
 
 	inline void CNetWork::processmsg()
 	{
-		for (auto iter = _msgqueue.begin(); iter != _msgqueue.end(); iter = _msgqueue.erase(iter))
+		/*for (auto iter = _msgqueue.begin(); iter != _msgqueue.end(); iter = _msgqueue.erase(iter))
 		{
 			try
 			{
@@ -190,10 +190,10 @@ namespace network
 				delete *iter;
 				core_log_error("processmsg", e.what());
 			}
-		}
+		}*/
 	}
 
-	inline void CNetWork::handlemsg(CMsgBase* base)
+	/*inline void CNetWork::handlemsg(CMsgBase* base)
 	{
 		switch (base->_type)
 		{
@@ -206,7 +206,7 @@ namespace network
 		default:
 			break;
 		}
-	}
+	}*/
 
 	void CNetWork::onTimer10ms()
 	{

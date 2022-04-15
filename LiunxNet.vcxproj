@@ -81,22 +81,24 @@
     <Text Include="app\CMakeLists.txt" />
     <Text Include="CMakeLists.txt" />
     <Text Include="core\CMakeLists.txt" />
+    <Text Include="core\core\CMakeLists.txt" />
     <Text Include="network\CMakeLists.txt" />
     <Text Include="test\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Configs.h" />
     <ClInclude Include="app\ServerApp.h" />
-    <ClInclude Include="core\Common.h" />
-    <ClInclude Include="core\Configs.h" />
-    <ClInclude Include="core\FastNode.h" />
-    <ClInclude Include="core\NonCopyable.h" />
-    <ClInclude Include="core\ObjectPools.h" />
-    <ClInclude Include="core\Singleton.h" />
-    <ClInclude Include="core\TimeHelp.h" />
-    <ClInclude Include="core\Timers.h" />
-    <ClInclude Include="core\TimerSet.h" />
-    <ClInclude Include="core\TimerWheel.h" />
+    <ClInclude Include="core\core\Common.h" />
+    <ClInclude Include="core\core\Configs.h" />
+    <ClInclude Include="core\core\FastNode.h" />
+    <ClInclude Include="core\core\NonCopyable.h" />
+    <ClInclude Include="core\core\ObjectPools.h" />
+    <ClInclude Include="core\core\RingBuff.h" />
+    <ClInclude Include="core\core\Singleton.h" />
+    <ClInclude Include="core\core\TimeHelp.h" />
+    <ClInclude Include="core\core\Timers.h" />
+    <ClInclude Include="core\core\TimerSet.h" />
+    <ClInclude Include="core\core\TimerWheel.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Buffer.h" />
     <ClInclude Include="network\BufferReader.h" />
@@ -106,7 +108,6 @@
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
     <ClInclude Include="network\Connection.h" />
-    <ClInclude Include="network\MsgContext.h" />
     <ClInclude Include="network\TcpConnector.h" />
     <ClInclude Include="network\Endpoint.h" />
     <ClInclude Include="network\EpollerEvent.h" />
@@ -116,17 +117,17 @@
     <ClInclude Include="network\IBuffer.h" />
     <ClInclude Include="network\Network.h" />
     <ClInclude Include="network\Listener.h" />
-    <ClInclude Include="network\RingBuff.h" />
     <ClInclude Include="network\TcpConnection.h" />
     <ClInclude Include="network\TcpListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app\ServerApp.cpp" />
-    <ClCompile Include="core\ObjectPools.cpp" />
-    <ClCompile Include="core\TimeHelp.cpp" />
-    <ClCompile Include="core\Timers.cpp" />
-    <ClCompile Include="core\TimerSet.cpp" />
-    <ClCompile Include="core\TimerWheel.cpp" />
+    <ClCompile Include="core\core\ObjectPools.cpp" />
+    <ClCompile Include="core\core\RingBuff.cpp" />
+    <ClCompile Include="core\core\TimeHelp.cpp" />
+    <ClCompile Include="core\core\Timers.cpp" />
+    <ClCompile Include="core\core\TimerSet.cpp" />
+    <ClCompile Include="core\core\TimerWheel.cpp" />
     <ClCompile Include="network\Address.cpp" />
     <ClCompile Include="network\Connection.cpp" />
     <ClCompile Include="network\TcpConnector.cpp" />
@@ -136,14 +137,13 @@
     <ClCompile Include="network\EventPoller.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="network\Listener.cpp" />
-    <ClCompile Include="network\RingBuff.cpp" />
     <ClCompile Include="network\TcpConnection.cpp" />
     <ClCompile Include="network\TcpListener.cpp" />
     <ClCompile Include="test\main.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\core\;.\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__linux;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CppLanguageStandard>c++17</CppLanguageStandard>
     </ClCompile>
@@ -151,36 +151,43 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <CppLanguageStandard>c++17</CppLanguageStandard>
+      <AdditionalIncludeDirectories>.\core\;.\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
       <CppLanguageStandard>c++17</CppLanguageStandard>
+      <AdditionalIncludeDirectories>.\core\;.\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
       <CppLanguageStandard>c++17</CppLanguageStandard>
+      <AdditionalIncludeDirectories>.\core\;.\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
       <CppLanguageStandard>c++17</CppLanguageStandard>
+      <AdditionalIncludeDirectories>.\core\;.\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <ClCompile>
       <CppLanguageStandard>c++17</CppLanguageStandard>
+      <AdditionalIncludeDirectories>.\core\;.\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <ClCompile>
       <CppLanguageStandard>c++17</CppLanguageStandard>
+      <AdditionalIncludeDirectories>.\core\;.\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <ClCompile>
       <CppLanguageStandard>c++17</CppLanguageStandard>
+      <AdditionalIncludeDirectories>.\core\;.\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
