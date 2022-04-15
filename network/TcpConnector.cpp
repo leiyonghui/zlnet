@@ -5,13 +5,14 @@
 namespace network
 {
 	CTcpConnector::CTcpConnector(const CAddress& address, CEventDispatcher* eventDispatcher):
-		CEventHandler(EHandler_TcpConnector, nullptr, eventDispatcher),
+		CEventHandler(EHandlerTcpConnector, nullptr, eventDispatcher),
 		_retryCount(0),
-		_maxRetry(3),
+		_maxRetry(5),
 		_retryId(0),
 		_state(EDisconnected),
 		_address(address),
-		_newCallback(nullptr)
+		_newCallback(nullptr),
+		_timeoutCallback(nullptr)
 	{
 
 	}
@@ -42,7 +43,7 @@ namespace network
 		case EADDRNOTAVAIL:
 		case ECONNREFUSED:
 		case ENETUNREACH:
-			retry();
+			reConnect();
 			return -1;
 
 		case EACCES:
@@ -73,7 +74,7 @@ namespace network
 		if (err)
 		{
 			core_log_error("connector handle error", strerror(err));
-			retry();
+			reConnect();
 		}
 		else
 		{
@@ -81,6 +82,14 @@ namespace network
 			return 0;
 		}
 		return -1;
+	}
+
+	int32 CTcpConnector::handleErrorEvent(int32 ev)
+	{
+		assert(_state == EConnecting);
+		assert(_endpoint);
+		_eventDispatcher->deregisterHandler(_endpoint->getSocket());
+		reConnect();
 	}
 
 	void CTcpConnector::connecting()
@@ -94,7 +103,7 @@ namespace network
 	void CTcpConnector::onConnected()
 	{
 		setState(EConnected);
-		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandler_TcpConnection, std::move(_endpoint));
+		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandlerTcpConnection, std::move(_endpoint));
 		connection->setEventDispatcher(_eventDispatcher);
 		_eventDispatcher->registerInputHandler(connection->getSocket(), connection.get());
 		if (_newCallback)
@@ -104,12 +113,7 @@ namespace network
 		assert(_endpoint == nullptr);
 	}
 
-	void CTcpConnector::onDisConnect()
-	{
-
-	}
-
-	void CTcpConnector::retry()
+	void CTcpConnector::reConnect()
 	{
 		assert(_state == EDisconnected);
 		_endpoint.reset();
@@ -122,7 +126,10 @@ namespace network
 		}
 		else
 		{
-			onDisConnect();
+			if (_timeoutCallback)
+			{
+				_timeoutCallback(_address);
+			}
 		}
 	}
 }

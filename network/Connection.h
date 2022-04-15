@@ -10,8 +10,8 @@ namespace network
 	{
 		EConnecting		=	1,		//正在连接
 		EConnected		=	2,		//已连接
-		EDisconnecting	=	3,		//半关闭中
-		EDisconnected	=	4,		//关闭
+		EDisconnecting	=	3,		//正在关闭
+		EDisconnected	=	4,		//已关闭
 	};
 
 	class CConnection :
@@ -21,13 +21,15 @@ namespace network
 		public std::enable_shared_from_this<CConnection>
 	{
 	public:
-		CConnection() : CEventHandler(), _state(EDisconnected) {};
+		CConnection(EHandlerType type);
 
-		virtual ~CConnection();
+		virtual ~CConnection() = default;
 
 		virtual void onAwake(EHandlerType type, CEndPointUnPtr&& endPoint);
 
 		virtual void onRecycle();
+
+		virtual void destroyed() = 0;
 
 		EConnectionState getState() { return _state; }
 
@@ -36,8 +38,6 @@ namespace network
 		void setInputCallback(onConnectionInputCallback&& callback) { _inputCallback = std::move(callback); }
 
 		void setCloseCallback(onConnectionCloseCallback&& callback) { _closeCallback = std::move(callback); };
-
-		virtual void destroyed() = 0;
 
 	protected:
 		EConnectionState _state;

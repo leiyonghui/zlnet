@@ -10,7 +10,7 @@
 
 namespace network
 {
-	CTcpConnection::CTcpConnection():CConnection(),_inputBuff(new CRingBuff(1024)),_outBuff(new CRingBuff(1024))
+	CTcpConnection::CTcpConnection():CConnection(EHandlerTcpConnection),_inputBuff(new CRingBuff(1024)),_outBuff(new CRingBuff(1024))
 	{
 	}
 	CTcpConnection::~CTcpConnection()
@@ -21,6 +21,8 @@ namespace network
 
 	void CTcpConnection::onAwake(EHandlerType type, CEndPointUnPtr&& endPoint)
 	{
+		assert(_inputBuff->size() == 0);
+		assert(_outBuff->size() == 0);
 		CConnection::onAwake(type, std::forward<CEndPointUnPtr>(endPoint));
 	}
 
@@ -29,6 +31,43 @@ namespace network
 		CConnection::onRecycle();
 		_inputBuff->clear();
 		_outBuff->clear();
+	}
+
+	void CTcpConnection::destroyed()
+	{
+		setState(EDisconnected);
+		_eventDispatcher->deregisterHandler(getSocket());
+		core_log_debug("destroyed", getSocket());
+	}
+
+	void CTcpConnection::close()
+	{
+		if (_state == EConnected || _state == EConnecting)
+		{
+			handleClose();
+		}
+	}
+
+	void CTcpConnection::closeWithDelay(int32 sec)
+	{
+		if (_state == EConnected || _state == EDisconnecting)
+		{
+			setState(EDisconnecting);
+			_eventDispatcher->addTimer(std::chrono::milliseconds(sec * 1000), 0ms, [con = SHARED_THIS(CTcpConnection)]() {
+				con->close();
+			});;
+		}
+	}
+
+	void CTcpConnection::shutdown()
+	{
+		if (_state == EConnected)
+		{
+			setState(EDisconnecting);
+			auto isWriting = _event & EPOLLOUT;
+			if (!isWriting)
+				_endpoint->shutdownWrite();
+		}
 	}
 
 	int32 CTcpConnection::handleInputEvent()
@@ -45,13 +84,6 @@ namespace network
 	{
 		handleError();
 		return 0;
-	}
-
-	void CTcpConnection::destroyed()
-	{
-		setState(EDisconnected);
-		_eventDispatcher->deregisterHandler(getSocket());
-		core_log_debug("destroyed", getSocket());
 	}
 
 #ifdef __linux
@@ -107,14 +139,17 @@ namespace network
 		if (!isWriting)
 			return 0;
 		//to do
+		return 0;
 	}
 
 	void CTcpConnection::handleClose()
 	{
-		setState(EDisconnecting);
+		assert(_state != EDisconnected);
+		setState(EDisconnected);
+		_eventDispatcher->deregisterHandler(getSocket());
 		if (_closeCallback)
 		{
-			_closeCallback(/*SHARED_THIS(CConnection)*/shared_from_this());
+			_closeCallback(SHARED_THIS(CConnection));
 		}
 	}
 

@@ -136,6 +136,16 @@ namespace network
 		}
 		return count;
 	}
+
+	int32 CEndPoint::shutdownWrite()
+	{
+		if (::shutdown(_socket, SHUT_WR) < 0)
+		{
+			core_log_error("sockets::shutdownWrite", errno, strerror(errno));
+			return -1;
+		}
+		return 0;
+	}
 	
 	int32 CEndPoint::readv(const iovec* iov, int32 iovcnt)
 	{

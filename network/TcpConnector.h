@@ -12,27 +12,22 @@ namespace network
 	{
 	public:
 		CTcpConnector(const CAddress & address, CEventDispatcher* eventDispatcher);
-
 		virtual ~CTcpConnector();
 
 		int32 connect();
 
-		int32 handleWriteEvent() override;
-
 		void setMaxRetry(int32 maxRetry) { _maxRetry = maxRetry; };
-
 		void setNewCallback(onNewConnectionCallback&& callback) { _newCallback = std::move(callback); }
-
+		void setTimeOutCallback(onTimeoutCallback&& callback) { _timeoutCallback = std::move(callback); };
 	protected:
+		int32 handleInputEvent() override { return 0; }
+		int32 handleWriteEvent() override;
+		int32 handleErrorEvent(int32 ev) override;
+
 		void setState(EConnectionState state) { _state = state; }
-
 		void connecting();
-
 		void onConnected();
-
-		void onDisConnect();
-
-		void retry();
+		void reConnect();
 
 		int32 _retryCount;
 		int32 _maxRetry;
@@ -40,5 +35,6 @@ namespace network
 		EConnectionState _state;
 		CAddress _address;
 		onNewConnectionCallback _newCallback;
+		onTimeoutCallback _timeoutCallback;
 	};
 }
