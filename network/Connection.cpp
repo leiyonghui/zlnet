@@ -12,6 +12,7 @@ namespace network
 	{
 		_type = type;
 		_endpoint = std::move(endPoint);
+		_state = EConnected;
 	}
 
 	void CConnection::onRecycle()
