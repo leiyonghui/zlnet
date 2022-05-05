@@ -45,9 +45,6 @@
     <ClInclude Include="network\Endpoint.h">
       <Filter>network</Filter>
     </ClInclude>
-    <ClInclude Include="app\ServerApp.h">
-      <Filter>app</Filter>
-    </ClInclude>
     <ClInclude Include="app\Configs.h">
       <Filter>app</Filter>
     </ClInclude>
@@ -102,6 +99,15 @@
     <ClInclude Include="core\core\TimerWheel.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="core\core\KeyPool.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\core\Macro.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\core\Queue.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">
@@ -112,9 +118,6 @@
     </ClCompile>
     <ClCompile Include="network\Endpoint.cpp">
       <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="app\ServerApp.cpp">
-      <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="core\core\ObjectPools.cpp">
       <Filter>core</Filter>

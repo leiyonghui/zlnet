@@ -1,7 +1,7 @@
 #ifdef __linux
 
 #include <stdio.h>
-#include "network/Network.h"
+//#include "network/Network.h"
 #include "network/Common.h"
 #include <iostream>
 #include "network/Address.h"
@@ -19,7 +19,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	int32 type;
+	/*int32 type;
 	cin >> type;
 	if (type == 1)
 	{
@@ -34,7 +34,7 @@ int main(int argc, char** argv)
 		CNetWork network;
 		network.createTcpConnector(addr);
 		network.start();
-	}
+	}*/
 
 	//core_log_trace("test", addr.toString());
 	return 0;

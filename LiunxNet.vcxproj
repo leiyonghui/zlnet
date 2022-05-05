@@ -87,12 +87,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Configs.h" />
-    <ClInclude Include="app\ServerApp.h" />
     <ClInclude Include="core\core\Common.h" />
     <ClInclude Include="core\core\Configs.h" />
     <ClInclude Include="core\core\FastNode.h" />
+    <ClInclude Include="core\core\KeyPool.h" />
+    <ClInclude Include="core\core\Macro.h" />
     <ClInclude Include="core\core\NonCopyable.h" />
     <ClInclude Include="core\core\ObjectPools.h" />
+    <ClInclude Include="core\core\Queue.h" />
     <ClInclude Include="core\core\RingBuff.h" />
     <ClInclude Include="core\core\Singleton.h" />
     <ClInclude Include="core\core\TimeHelp.h" />
@@ -111,7 +113,6 @@
     <ClInclude Include="network\IBuffer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="app\ServerApp.cpp" />
     <ClCompile Include="core\core\ObjectPools.cpp" />
     <ClCompile Include="core\core\RingBuff.cpp" />
     <ClCompile Include="core\core\TimeHelp.cpp" />
