@@ -29,7 +29,7 @@
       <Filter>core</Filter>
     </Text>
     <Text Include="core\CMakeLists.txt">
-      <Filter>network</Filter>
+      <Filter>core</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -42,22 +42,7 @@
     <ClInclude Include="network\Configs.h">
       <Filter>network</Filter>
     </ClInclude>
-    <ClInclude Include="network\Network.h">
-      <Filter>network</Filter>
-    </ClInclude>
     <ClInclude Include="network\Endpoint.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="network\Connection.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="network\Listener.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="network\TcpListener.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="network\EventHandlers.h">
       <Filter>network</Filter>
     </ClInclude>
     <ClInclude Include="app\ServerApp.h">
@@ -66,22 +51,7 @@
     <ClInclude Include="app\Configs.h">
       <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="network\EventPoller.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="network\EpollerEvent.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="network\EventDispatcher.h">
-      <Filter>network</Filter>
-    </ClInclude>
     <ClInclude Include="network\Callbacks.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="network\TcpConnection.h">
-      <Filter>network</Filter>
-    </ClInclude>
-    <ClInclude Include="network\TcpConnector.h">
       <Filter>network</Filter>
     </ClInclude>
     <ClInclude Include="network\Buffs.h">
@@ -137,37 +107,10 @@
     <ClCompile Include="network\Address.cpp">
       <Filter>network</Filter>
     </ClCompile>
-    <ClCompile Include="network\Network.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
     <ClCompile Include="test\main.cpp">
       <Filter>test</Filter>
     </ClCompile>
     <ClCompile Include="network\Endpoint.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="network\Connection.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="network\Listener.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="network\TcpListener.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="network\EventPoller.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="network\EpollerEvent.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="network\EventDispatcher.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="network\TcpConnection.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
-    <ClCompile Include="network\TcpConnector.cpp">
       <Filter>network</Filter>
     </ClCompile>
     <ClCompile Include="app\ServerApp.cpp">
