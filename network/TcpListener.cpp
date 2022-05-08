@@ -20,6 +20,7 @@ namespace network
 			_eventDispatcher->registerInputHandler(_endpoint->getSocket(), this);
 			return true;
 		}
+		core_log_debug("listen address:", _endpoint->getAddress().toString());
 		return false;
 	}
 
@@ -28,6 +29,7 @@ namespace network
 		CEndPointUnPtr endPoint = _endpoint->accept();
 		if (endPoint == nullptr)
 			return -1;
+		core_log_debug("address:", endPoint->getAddress().toString());
 		CTcpConnectionPtr connection = CObjectPool<CTcpConnection>::Instance()->create(EHandlerTcpConnection, std::move(endPoint));
 		connection->setEventDispatcher(_eventDispatcher);
 		_eventDispatcher->registerInputHandler(connection->getSocket(), connection.get());

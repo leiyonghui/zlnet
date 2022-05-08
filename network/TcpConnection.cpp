@@ -144,9 +144,16 @@ namespace network
 
 	void CTcpConnection::handleClose()
 	{
+		static int32 i = 0;
 		assert(_state != EDisconnected);
 		setState(EDisconnected);
-		_eventDispatcher->deregisterHandler(getSocket());
+		auto er = _endpoint->getSocketError();
+		core_log_debug("error: ", er);
+		i++;
+		if (i > 3)
+		{
+			_eventDispatcher->deregisterHandler(getSocket());
+		}
 		if (_closeCallback)
 		{
 			_closeCallback(SHARED_THIS(CConnection));

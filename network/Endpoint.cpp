@@ -173,11 +173,11 @@ namespace network
 		socklen_t optlen = static_cast<socklen_t>(sizeof optval);
 		if (::getsockopt(_socket, SOL_SOCKET, SO_ERROR, &optval, &optlen) < 0)
 		{
-			return errno;
+			return errno;//Solaris
 		}
 		else
 		{
-			return optval;
+			return optval;//Berkeley
 		}
 	}
 

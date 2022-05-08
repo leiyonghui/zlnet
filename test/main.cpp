@@ -23,14 +23,14 @@ int main(int argc, char** argv)
 	cin >> type;
 	if (type == 1)
 	{
-		CAddress addr("127.0.0.1", 9802);
+		CAddress addr(INADDR_ANY, 9802);
 		CNetWork network;
 		network.createTcpListener(addr);
 		network.start();
 	}
 	else
 	{
-		CAddress addr("127.0.0.1", 9802);
+		CAddress addr("101.33.228.226", 9802);
 		CNetWork network;
 		network.createTcpConnector(addr);
 		network.start();

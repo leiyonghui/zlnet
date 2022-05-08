@@ -34,15 +34,15 @@ namespace network
 		case 0:
 		case EINPROGRESS:
 		case EINTR:
-		case EISCONN:
+		case EISCONN:		//The socket is already connected
 			connecting();
 			return 0;
 
-		case EAGAIN:
-		case EADDRINUSE:
-		case EADDRNOTAVAIL:
-		case ECONNREFUSED:
-		case ENETUNREACH:
+		case EAGAIN:		//the socket is nonblocking, and the connection cannot be completed immediately.For other socket families, there are insufficient entries in the routing cache.
+		case EADDRINUSE:	//Local address is already in use.
+		case EADDRNOTAVAIL:	//Cannot assign requested address 
+		case ECONNREFUSED:	//响应RST,没有进程等待与之连接//没有人在侦听远程地址
+		case ENETUNREACH:	//Network is unreachable.
 			reConnect();
 			return -1;
 
@@ -53,16 +53,12 @@ namespace network
 		case EBADF:
 		case EFAULT:
 		case ENOTSOCK:
-			core_log_error("connect error");
-			_endpoint.reset();
-			return -1;
-
+			core_log_error("connect error", code);
 		default:
-			core_log_error("connect Unexpected error");
-			_endpoint.reset();
-			return -1;
+			core_log_error("connect Unexpected error", code);
 		}
-		return 0;
+		_endpoint.reset();
+		return -1;
 	}
 
 	int32 CTcpConnector::handleWriteEvent()
@@ -87,9 +83,12 @@ namespace network
 	int32 CTcpConnector::handleErrorEvent(int32 ev)
 	{
 		assert(_state == EConnecting);
-		assert(_endpoint);
-		_eventDispatcher->deregisterHandler(_endpoint->getSocket());
-		reConnect();
+		if (_state == EConnecting)
+		{
+			assert(_endpoint);
+			_eventDispatcher->deregisterHandler(_endpoint->getSocket());
+			reConnect();
+		}
 	}
 
 	void CTcpConnector::connecting()

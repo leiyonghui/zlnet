@@ -218,7 +218,7 @@ namespace network
 		count++;
 		if (count % 20 == 0)
 		{
-			CObjectPoolMonitor::showInfo();
+			//CObjectPoolMonitor::showInfo();
 		}
 	}
 

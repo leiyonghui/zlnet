@@ -50,23 +50,20 @@ namespace network
 			const uint32& ev = event.events;
 			int32 events = handler->getEvent();
 			printfEvent(handler->getSocket(), ev);
-			if (ev & (EPOLLERR | EPOLLHUP) && !(ev & EPOLLIN))
+			//if (ev & EPOLLERR)
+			//{
+			//	handler->handleErrorEvent(ev);
+			//}
+			if (ev & EPOLLIN)
 			{
-				handler->handleErrorEvent(ev);
+				if (events & ev)
+					handler->handleInputEvent();
 			}
-			else
+			if (ev & EPOLLOUT)
 			{
-				if (ev & EPOLLIN)
-				{
-					if (events & ev)
-						handler->handleInputEvent();
-				}
-				if (ev & EPOLLOUT)
-				{
-					if (events & ev)
-						handler->handleWriteEvent();
-				}
-			}			
+				if (events & ev)
+					handler->handleWriteEvent();
+			}
 		}
 	}
 
