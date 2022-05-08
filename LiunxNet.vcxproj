@@ -82,6 +82,7 @@
     <Text Include="CMakeLists.txt" />
     <Text Include="core\CMakeLists.txt" />
     <Text Include="core\core\CMakeLists.txt" />
+    <Text Include="engine\CMakeLists.txt" />
     <Text Include="network\CMakeLists.txt" />
     <Text Include="test\CMakeLists.txt" />
   </ItemGroup>
@@ -101,6 +102,7 @@
     <ClInclude Include="core\core\Timers.h" />
     <ClInclude Include="core\core\TimerSet.h" />
     <ClInclude Include="core\core\TimerWheel.h" />
+    <ClInclude Include="engine\Configs.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Buffer.h" />
     <ClInclude Include="network\BufferReader.h" />
@@ -110,7 +112,15 @@
     <ClInclude Include="network\Common.h" />
     <ClInclude Include="network\Configs.h" />
     <ClInclude Include="network\Endpoint.h" />
+    <ClInclude Include="network\EPoller.h" />
+    <ClInclude Include="network\IOEvent.h" />
+    <ClInclude Include="network\IOEvents.h" />
+    <ClInclude Include="network\Poller.h" />
     <ClInclude Include="network\IBuffer.h" />
+    <ClInclude Include="network\IOObject.h" />
+    <ClInclude Include="network\IOObjects.h" />
+    <ClInclude Include="network\IOProtocol.h" />
+    <ClInclude Include="network\Network.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\core\ObjectPools.cpp" />
@@ -121,6 +131,10 @@
     <ClCompile Include="core\core\TimerWheel.cpp" />
     <ClCompile Include="network\Address.cpp" />
     <ClCompile Include="network\Endpoint.cpp" />
+    <ClCompile Include="network\EPoller.cpp" />
+    <ClCompile Include="network\IOProtocol.cpp" />
+    <ClCompile Include="network\Network.cpp" />
+    <ClCompile Include="network\Poller.cpp" />
     <ClCompile Include="test\main.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

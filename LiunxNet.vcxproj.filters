@@ -13,6 +13,9 @@
     <Filter Include="app">
       <UniqueIdentifier>{be61432b-172c-48ec-8e6f-d7985fbed124}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{fd485f03-4304-4a3c-9cac-9f8f7a986797}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="network\CMakeLists.txt">
@@ -30,6 +33,9 @@
     </Text>
     <Text Include="core\CMakeLists.txt">
       <Filter>core</Filter>
+    </Text>
+    <Text Include="engine\CMakeLists.txt">
+      <Filter>engine</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +114,33 @@
     <ClInclude Include="core\core\Queue.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="engine\Configs.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Network.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\IOObject.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\IOProtocol.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\IOObjects.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Poller.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\EPoller.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\IOEvent.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="network\IOEvents.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Address.cpp">
@@ -136,6 +169,18 @@
     </ClCompile>
     <ClCompile Include="core\core\TimerWheel.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Network.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\IOProtocol.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Poller.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="network\EPoller.cpp">
+      <Filter>network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
